@@ -117,6 +117,17 @@ module.exports = {
                                 path: '/v7/guide/core/user',
                             }
                         ]
+                    },
+                    {
+                        title: '速查表',         // 必要的，分组的标题文字
+                        collapsable: false,     // 可选的, 设置分组是否可以折叠，默认值是 true
+                        sidebarDepth: 3,        // 可选的, 嵌套渲染深度，默认值是 2
+                        children: [             // 必要的，分组的子项目
+                            {
+                                title: '表单 API',
+                                path: '/v7/guide/form/',
+                            }
+                        ]
                     }
                 ]
             },
@@ -142,11 +153,11 @@ module.exports = {
     },
 
     // 目录别名
-    configureWebpack: {
-        resolve: {
-            alias: {
-                '@assets': './public'
-            }
-        }
-    },
+    // configureWebpack: {
+    //     resolve: {
+    //         alias: {
+    //             '@public': '../../public/'
+    //         }
+    //     }
+    // }
 }
