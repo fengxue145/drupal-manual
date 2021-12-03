@@ -1,0 +1,10 @@
+# ignore file
+package-lock.json
+
+# ignore dir
+.git
+.svn
+.idea
+.vscode
+.temp
+node_modules
