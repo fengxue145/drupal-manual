@@ -1,0 +1,21 @@
+{
+    "guide": {
+        "title": "指南",
+        "collapsable": false,
+        "sidebarDepth": 3,
+        "children": [
+            {
+                "title": "介绍",
+                "path": "/"
+            },
+            {
+                "title": "站点搭建",
+                "path": "/site-set-up"
+            },
+            {
+                "title": "目录结构",
+                "path": "/directory-structure"
+            }
+        ]
+    }
+}

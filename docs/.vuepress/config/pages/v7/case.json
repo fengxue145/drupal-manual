@@ -1,0 +1,16 @@
+{
+    "case": {
+        "title": "案例",
+        "children": [
+            {
+                "title": "用户相关",
+                "children": [
+                    {
+                        "title": "用户登录",
+                        "path": "/user/login"
+                    }
+                ]
+            }
+        ]
+    }
+}

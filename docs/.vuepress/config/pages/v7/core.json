@@ -1,0 +1,35 @@
+{
+    "core": {
+        "title": "核心概念",
+        "children": [
+            {
+                "title": "模块",
+                "path": "/module"
+            },
+            {
+                "title": "钩子",
+                "path": "/hook"
+            },
+            {
+                "title": "主题",
+                "path": "/theme"
+            },
+            {
+                "title": "节点",
+                "path": "/node"
+            },
+            {
+                "title": "区块",
+                "path": "/block"
+            },
+            {
+                "title": "菜单",
+                "path": "/menu"
+            },
+            {
+                "title": "用户",
+                "path": "/user"
+            }
+        ]
+    }
+}

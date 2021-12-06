@@ -2,8 +2,8 @@
 home: true
 heroImage: /hero.png
 heroText: Drupal
-tagline: Drupal Manual
-actionText: Get Started
+tagline: Drupal 开发文档
+actionText: 快速上手 →
 actionLink: /guide/
 features:
 - title: 简洁至上
