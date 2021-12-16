@@ -1,0 +1,24 @@
+{
+    "/v7/module/": [
+        {
+            "title": "Ctools",
+            "path": "ctools/"
+        },
+        {
+            "title": "Entity",
+            "path": "entity/"
+        },
+        {
+            "title": "Views",
+            "path": "views/"
+        },
+        {
+            "title": "Rules",
+            "path": "rules/"
+        },
+        {
+            "title": "Token",
+            "path": "token/"
+        }
+    ]
+}

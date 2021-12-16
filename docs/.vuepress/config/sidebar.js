@@ -1,25 +1,13 @@
-module.exports = [
-    {
-        title: '案例',
-        children: [
-            {
-                title: '模块相关',
-                children: [
-                    {
-                        title: '第一个模块',
-                        path: '/case/module/first',
-                    }
-                ],
-            },
-            {
-                title: '用户相关',
-                children: [
-                    {
-                        title: '用户登录',
-                        path: '/case/user/login',
-                    }
-                ],
-            }
-        ]
-    }
-]
+const _api = require('./pages/v7/api.json')
+const _case = require('./pages/v7/case.json')
+const _core = require('./pages/v7/core.json')
+const _guide = require('./pages/v7/guide.json')
+const _module = require('./pages/v7/module.json')
+
+module.exports = {
+    ..._api,
+    ..._case,
+    ..._core,
+    ..._guide,
+    ..._module
+}

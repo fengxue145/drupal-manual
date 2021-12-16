@@ -8,3 +8,5 @@ package-lock.json
 .vscode
 .temp
 node_modules
+docs/caogtja
+docs/.vuepress/public/caogtja

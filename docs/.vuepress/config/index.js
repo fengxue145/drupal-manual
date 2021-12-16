@@ -4,8 +4,8 @@ const sidebar = require('./sidebar')
 
 module.exports = {
     // 基础设置
-    // lang: 'zh-CN',
-    title: "Drupal 手册",
+    // base: '/v7',
+    title: "Drupal 开发文档",
     description: "Drupal 开发文档",
 
     // 导航栏 logo
@@ -40,119 +40,5 @@ module.exports = {
 
         // 侧边栏配置
         sidebar,
-
-        //         // 侧边栏
-        //         sidebar: [
-        //             {
-        //                 title: '指南',          // 必要的，分组的标题文字
-        //                 collapsable: false,     // 可选的, 设置分组是否可以折叠，默认值是 true
-        //                 sidebarDepth: 3,        // 可选的, 嵌套渲染深度，默认值是 2
-        //                 children: [             // 必要的，分组的子项目
-        //                     {
-        //                         title: '介绍',
-        //                         path: '/v7/guide/',
-        //                     },
-        //                     {
-        //                         title: '站点搭建',
-        //                         path: '/v7/guide/site-set-up',
-        //                     },
-        //                     {
-        //                         title: '目录结构',
-        //                         path: '/v7/guide/directory-structure',
-        //                     }
-        //                 ]
-        //             },
-        //             {
-        //                 title: '核心概念',       // 必要的，分组的标题文字
-        //                 collapsable: false,     // 可选的, 设置分组是否可以折叠，默认值是 true
-        //                 sidebarDepth: 3,        // 可选的, 嵌套渲染深度，默认值是 2
-        //                 children: [             // 必要的，分组的子项目
-        //                     {
-        //                         title: '模块',
-        //                         path: '/v7/guide/core/module',
-        //                     },
-        //                     {
-        //                         title: '钩子',
-        //                         path: '/v7/guide/core/hook',
-        //                     },
-        //                     {
-        //                         title: '主题',
-        //                         path: '/v7/guide/core/theme',
-        //                     },
-        //                     {
-        //                         title: '节点',
-        //                         path: '/v7/guide/core/node',
-        //                     },
-        //                     {
-        //                         title: '区块',
-        //                         path: '/v7/guide/core/block',
-        //                     },
-        //                     {
-        //                         title: '菜单',
-        //                         path: '/v7/guide/core/menu',
-        //                     },
-        //                     {
-        //                         title: '用户',
-        //                         path: '/v7/guide/core/user',
-        //                     }
-        //                 ]
-        //             },
-        //             {
-        //                 title: '速查表',         // 必要的，分组的标题文字
-        //                 collapsable: false,     // 可选的, 设置分组是否可以折叠，默认值是 true
-        //                 sidebarDepth: 3,        // 可选的, 嵌套渲染深度，默认值是 2
-        //                 children: [             // 必要的，分组的子项目
-        //                     {
-        //                         title: '表单 API',
-        //                         path: '/v7/guide/form/',
-        //                     }
-        //                 ]
-        //             },
-        //             {
-        //                 title: '案例',         // 必要的，分组的标题文字
-        //                 // collapsable: false,     // 可选的, 设置分组是否可以折叠，默认值是 true
-        //                 // sidebarDepth: 3,        // 可选的, 嵌套渲染深度，默认值是 2
-        //                 children: [             // 必要的，分组的子项目
-        //                     {
-        //                         title: '用户相关',
-        //                         children: [
-        //                             {
-        //                                 title: '用户登录',
-        //                                 path: '/v7/guide/form/',
-        //                             }
-        //                         ],
-        //                     }
-        //                 ]
-        //             }
-        //         ]
-        //     },
-        //     '/zh/': {
-        //         selectText: '选择语言',      // 多语言下拉菜单的标题
-        //         label: '简体中文',           // 该语言在下拉菜单中的标签
-
-        //         // 导航配置
-        //         nav: [
-        //             { text: '指南', link: '/zh/v7/guide/' },
-        //             {
-        //                 text: '选择版本',
-        //                 ariaLabel: 'Version Menu',
-        //                 items: [
-        //                     { text: 'v7.x', link: '/zh/v7/guide', target:'_blank' },
-        //                     // { text: 'v8.x', link: '/zh/v8/guide', target:'_blank' },
-        //                     // { text: 'v9.x', link: '/zh/v9/guide', target:'_blank' }
-        //                 ]
-        //             }
-        //         ],
-        //     }
-        // }
-    },
-
-    // 目录别名
-    // configureWebpack: {
-    //     resolve: {
-    //         alias: {
-    //             '@public': '../../public/'
-    //         }
-    //     }
-    // }
+    }
 }

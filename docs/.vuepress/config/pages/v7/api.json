@@ -1,13 +1,8 @@
 {
-    "api": {
-        "title": "速查表",
-        "collapsable": false,
-        "sidebarDepth": 3,
-        "children": [
-            {
-                "title": "表单",
-                "path": "/form"
-            }
-        ]
-    }
+    "/v7/api/": [
+        {
+            "title": "表单",
+            "path": "form/"
+        }
+    ]
 }
