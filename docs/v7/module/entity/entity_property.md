@@ -8,22 +8,22 @@
 
 
 ## 定义 `Property` 方式
-定义实体的 `property` 有四种方式, 如下：
+定义 `property` 有四种方式, 如下：
 1. [default property info](#default-property-info)
 
-    默认实体属性。
+    默认实体属性，且属性只读。(仅支持实体)
 
 2. [hook_entity_property_info](#hook-entity-property-info)
 
-    `{hook}_entity_property_info` 钩子定义实体属性。
+    `{hook}_entity_property_info` 钩子定义实体属性。(仅支持实体)
 
 3. [entity_metadata_wrapper](#entity-metadata-wrapper)
 
-    `entity_metadata_wrapper()` 第三个参数定义实体属性。
+    `entity_metadata_wrapper()` 第三个参数定义数据属性。(支持自定义数据)
 
 4. [metadata controller class](#metadata-controller-class)
 
-    元数据类定义实体属性。**推荐**
+    元数据类定义实体属性。(仅支持实体)
 
 
 
@@ -107,7 +107,7 @@ function my_user_entity_property_info_alter(&$info) {
 `entity_metadata_wrapper()` 传入第三个参数来定义属性。
 
 ```php
-$my_user = entity_load_single('my_user', 1);
+$my_user = [];
 $warpper = entity_metadata_wrapper('my_user', $my_user, array(
     'property info' => array(
         'name' => array(
