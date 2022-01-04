@@ -514,6 +514,9 @@ echo entity_id($entity); // 1
 获取实体ID。若实体指定了 `[entity keys][name]`，则优先返回 `[entity keys][name]` 对应键的值。
 
 
+## entity_extract_ids
+
+
 ## entity_build_content
 `entity_build_content($entity_type, $entity, $view_mode = 'full', $langcode = NULL)`
 - 参数:
@@ -850,10 +853,46 @@ function mymodule_entity_info() {
 返回实体的 uri。
 
 
-
 ## entity_i18n_string
 
+
+## entity_ui_controller
+`entity_ui_controller($type = NULL)`
+
+- 参数:
+  - `$type`: `string`
+
+    实体类型。默认 `NULL` 返回默认控制器
+
+```php {7}
+function mymodule_entity_info() {
+    return array(
+        'first_entity' => array(
+            ...
+            'admin ui' => array(
+                'path' => 'admin/content/first_entity',
+                'controller class' => 'EntityDefaultUIController',
+            ),
+            ...
+        )
+    )
+}
+
+entity_ui_controller('first_entity'); // EntityDefaultUIController object
+```
+
+获取实体的UI控制器类。
+
+
+## entity_get_controller
+
 ## entity_get_extra_fields_controller
+
+## entity_get_info
+
+## entity_info_cache_clear
+
+
 
 ## entity_metadata_wrapper
 
@@ -861,21 +900,16 @@ function mymodule_entity_info() {
 
 ## entity_metadata_convert_schema
 
-## entity_get_info
 
-## entity_info_cache_clear
 
-## entity_extract_ids
+
+
+
 
 
 ## entity_create_stub_entity
 
-
-
-## entity_get_controller
-
 ## entity_prepare_view
-
 
 ## entity_view_mode_prepare
 

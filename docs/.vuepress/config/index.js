@@ -40,5 +40,8 @@ module.exports = {
 
         // 侧边栏配置
         sidebar,
-    }
+    },
+    // markdown: {
+    //     lineNumbers: true
+    // }
 }
