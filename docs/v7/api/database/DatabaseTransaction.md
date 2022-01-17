@@ -94,3 +94,81 @@ if (!$affected_rows) {
     $transaction->rollback();
 }
 ```
+
+
+## 源代码
+```php
+class DatabaseTransaction {
+
+    /**
+     * The connection object for this transaction.
+     *
+     * @var DatabaseConnection
+     */
+    protected $connection;
+
+    /**
+     * A boolean value to indicate whether this transaction has been rolled back.
+     *
+     * @var Boolean
+     */
+    protected $rolledBack = FALSE;
+
+    /**
+     * The name of the transaction.
+     *
+     * This is used to label the transaction savepoint. It will be overridden to
+     * 'drupal_transaction' if there is no transaction depth.
+     */
+    protected $name;
+
+    public function __construct(DatabaseConnection $connection, $name = NULL) {
+        $this->connection = $connection;
+        // If there is no transaction depth, then no transaction has started. Name
+        // the transaction 'drupal_transaction'.
+        if (!$depth = $connection->transactionDepth()) {
+            $this->name = 'drupal_transaction';
+        }
+        // Within transactions, savepoints are used. Each savepoint requires a
+        // name. So if no name is present we need to create one.
+        elseif (!$name) {
+            $this->name = 'savepoint_' . $depth;
+        }
+        else {
+            $this->name = $name;
+        }
+        $this->connection->pushTransaction($this->name);
+    }
+
+    public function __destruct() {
+        // If we rolled back then the transaction would have already been popped.
+        if (!$this->rolledBack) {
+            $this->connection->popTransaction($this->name);
+        }
+    }
+
+    /**
+     * Retrieves the name of the transaction or savepoint.
+     */
+    public function name() {
+        return $this->name;
+    }
+
+    /**
+     * Rolls back the current transaction.
+     *
+     * This is just a wrapper method to rollback whatever transaction stack we are
+     * currently in, which is managed by the connection object itself. Note that
+     * logging (preferable with watchdog_exception()) needs to happen after a
+     * transaction has been rolled back or the log messages will be rolled back
+     * too.
+     *
+     * @see DatabaseConnection::rollback()
+     * @see watchdog_exception()
+     */
+    public function rollback() {
+        $this->rolledBack = TRUE;
+        $this->connection->rollback($this->name);
+    }
+}
+```
