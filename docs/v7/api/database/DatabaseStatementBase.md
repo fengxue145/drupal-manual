@@ -34,7 +34,7 @@
 
     用于控制查询如何运行的关联选项数组。默认 `[]`
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](./databaseconnection.html#defaultoptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](./databaseconnection.html#defaultOptions)
 
 返回值: `boolean`
 

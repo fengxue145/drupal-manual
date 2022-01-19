@@ -1,10 +1,12 @@
 # DeleteQuery
 
-用于抽象 `DELETE` 操作的一般类。
+用于抽象 `DELETE` 操作的基类。
 
 
 ## $table
 <Badge>protected</Badge>
+
+要删除的表名称。
 
 - 类型: `string`
 
@@ -12,23 +14,41 @@
 ## $condition
 <Badge>protected</Badge>
 
+此查询的条件对象。
+
 - 类型: [DatabaseCondition](./DatabaseCondition)
 
 
 ## __construct(DatabaseConnection $connection, $table, array $options = array())
 
 参数:
-- `$connection`: [DatabaseCondition](./DatabaseCondition)
+- `$connection`: [DatabaseConnection](./DatabaseConnection)
+
+  数据库连接对象。
+
 - `$table`: `string`
+
+  当前操作的数据表。
+
 - `$options`: `array`
+
+  查询选项。
 
 
 ## condition($field, $value = NULL, $operator = NULL)
 
 参数:
 - `$field`: `string`
+
+  要查询的字段名。
+
 - `$value`: `mixed`
+
+  要查询的值。
+
 - `$operator`: `string` | `null`
+
+  查询操作符。
 
 返回值: `this`
 

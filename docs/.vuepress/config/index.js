@@ -1,6 +1,8 @@
 const head = require('./head')
 const nav = require('./nav')
 const sidebar = require('./sidebar')
+const helper = require('../helper')
+
 
 module.exports = {
     // 基础设置
@@ -41,7 +43,32 @@ module.exports = {
         // 侧边栏配置
         sidebar,
     },
-    // markdown: {
-    //     lineNumbers: true
-    // }
+    markdown: {
+        // lineNumbers: true,
+        slugify: helper.makedownSlugify
+    },
+    plugins: [
+        [
+            (pluginOptions, context) => ({
+                name: 'md-hash-plugin',
+                extendMarkdown: md => {
+
+                    const link_open = md.renderer.rules.link_open
+                    const link_close = md.renderer.rules.link_close
+
+
+                    md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+                        console.log('link_open', tokens.content)
+                        return link_open(tokens, idx, options, env, self)
+                    }
+
+                    // md.renderer.rules.link_close = (tokens, idx, options, env, self) => {
+                    //     console.log('link_close', tokens.content)
+                    //     return link_close(tokens, idx, options, env, self)
+                    // }
+
+                }
+            })
+        ]
+    ]
 }

@@ -167,62 +167,62 @@
 
 ## execute($args, $options)
 
-参见 [DatabasestatementInterface::execute()](./DatabaseStatementInterface.html#execute-args-options)
+参见 [DatabasestatementInterface::execute()](./DatabaseStatementInterface.html#execute)
 
 
 ## getQueryString()
 
-参见 [DatabasestatementInterface::execute()](./DatabaseStatementInterface.html#getquerystring)
+参见 [DatabasestatementInterface::execute()](./DatabaseStatementInterface.html#getQueryString)
 
 
 ## setFetchMode($fetchStyle, $a2, $a3)
 
-参见 [DatabasestatementInterface::setFetchMode()](./DatabaseStatementInterface.html#setfetchmode-mode)
+参见 [DatabasestatementInterface::setFetchMode()](./DatabaseStatementInterface.html#setFetchMode)
 
 
 ## fetch($fetch_style)
 
-参见 [DatabasestatementInterface::fetch()](./DatabaseStatementInterface.html#fetch-fetch-style-cursor-orientation-cursor-offset)
+参见 [DatabasestatementInterface::fetch()](./DatabaseStatementInterface.html#fetch)
 
 
 ## fetchColumn($index)
 
-同 [fetchField()](#fetchfield-index)
+同 [fetchField()](#fetchField)
 
 
 ## fetchField($index)
 
-参见 [DatabasestatementInterface::fetchField()](./DatabaseStatementInterface.html#fetchfield-index)
+参见 [DatabasestatementInterface::fetchField()](./DatabaseStatementInterface.html#fetchField)
 
 
 ## fetchObject($class_name, $constructor_args)
 
-参见 [DatabasestatementInterface::fetchObject()](./DatabaseStatementInterface.html#fetchobject-class-name-ctor-args)
+参见 [DatabasestatementInterface::fetchObject()](./DatabaseStatementInterface.html#fetchObject)
 
 
 ## fetchAssoc()
 
-参见 [DatabasestatementInterface::fetchAssoc()](./DatabaseStatementInterface.html#fetchassoc)
+参见 [DatabasestatementInterface::fetchAssoc()](./DatabaseStatementInterface.html#fetchAssoc)
 
 
 ## fetchAll($fetch_style, $fetch_column, $ctor_args)
 
-参见 [DatabasestatementInterface::fetchAll()](./DatabaseStatementInterface.html#fetchall-fetch-style-fetch-argument-ctor-args)
+参见 [DatabasestatementInterface::fetchAll()](./DatabaseStatementInterface.html#fetchAll)
 
 
 ## fetchCol($index)
 
-参见 [DatabasestatementInterface::fetchCol()](./DatabaseStatementInterface.html#fetchcol-index)
+参见 [DatabasestatementInterface::fetchCol()](./DatabaseStatementInterface.html#fetchCol)
 
 
 ## fetchAllKeyed($key_index, $value_index)
 
-参见 [DatabasestatementInterface::fetchAllKeyed()](./DatabaseStatementInterface.html#fetchallkeyed-key-index-value-index)
+参见 [DatabasestatementInterface::fetchAllKeyed()](./DatabaseStatementInterface.html#fetchAllKeyed)
 
 
 ## fetchAllAssoc($key, $fetch_style)
 
-参见 [DatabasestatementInterface::fetchAllAssoc()](./DatabaseStatementInterface.html#fetchallassoc-key-fetch)
+参见 [DatabasestatementInterface::fetchAllAssoc()](./DatabaseStatementInterface.html#fetchAllAssoc)
 
 
 ## current()

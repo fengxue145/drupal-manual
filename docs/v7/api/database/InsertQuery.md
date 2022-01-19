@@ -1,16 +1,20 @@
 # InsertQuery
 
-用于抽象 `INSERT` 操作的一般类。
+用于抽象 `INSERT` 操作的基类。
 
 
 ## $table
 <Badge>protected</Badge>
+
+要插入的表名称。
 
 - 类型: `string`
 
 
 ## $insertFields
 <Badge>protected</Badge>
+
+要插入的字段数组。
 
 - 类型: `array`
 - 默认值: `[]`
@@ -19,12 +23,16 @@
 ## $defaultFields
 <Badge>protected</Badge>
 
+在表中定义了默认值的字段数组。
+
 - 类型: `array`
 - 默认值: `[]`
 
 
 ## $insertValues
 <Badge>protected</Badge>
+
+要插入的数据嵌套数组。
 
 - 类型: `array`
 - 默认值: `[]`
@@ -33,6 +41,8 @@
 ## $fromQuery
 <Badge>protected</Badge>
 
+一个 [SelectQuery](./SelectQuery) 对象，用于获取应该插入的行。
+
 - 类型: [SelectQueryInterface](./SelectQueryInterface)
 
 
@@ -40,55 +50,153 @@
 
 参数:
 - `$connection`: [DatabaseConnection](./DatabaseConnection)
+
+  数据库连接对象。
+
 - `$table`: `string`
+
+  当前操作的数据表。
+
 - `$options`: `array`
 
+  查询选项。
 
 
-## fields(array $fields, array $values = array())
+## fields($fields, $values)
 
-参数:
-- `$fields`: `array`
-- `$values`: `array`
+添加一组要插入的 `field` -> `value` 对。
 
-返回值: `this`
-
-
-## values(array $values)
-
-参数:
-- `$values`: `array`
-
-返回值: `this`
-
-
-## useDefaults(array $fields)
+::: tip
+此方法只调用一次，第二次调用将被忽略。如果要插入多条数据，请使用 `values()` 方法。
+:::
 
 参数:
 - `$fields`: `array`
 
+  字段列表。
+
+- `$values`: `array`
+
+  字段值数组。默认 `[]`
+
 返回值: `this`
+
+```php
+// 方式一
+db_insert('node')
+  ->fields(array('title', 'uid', 'status'), array('Example', 1, 1))
+  ->execute();
+
+// 方式二
+db_insert('node')
+  ->fields(array('title' => 'Example', 'uid' => 1, 'status' => 1))
+  ->execute();
+```
+
+
+## values($values)
+
+往查询添加另一组值。
+
+参数:
+- `$values`: `array`
+
+  字段值数组。
+
+  如果 `$values` 是索引数组，则顺序必须与 `fields()` 的一致。如果是关联数组，顺序可以不一致，但字段必须存在。
+
+返回值: `this`
+
+```php
+// 插入单条数据
+db_insert('node')
+  ->fields(array('title', 'uid', 'status'))
+  ->values(array('Example', 1, 1))
+  ->execute();
+
+// 插入多条数据
+db_insert('node')
+  ->fields(array('title', 'uid', 'status'))
+  ->values(array('title' => 'Example 1', 'uid' => 1, 'status' => 1))
+  ->values(array('title' => 'Example 2', 'uid' => 1, 'status' => 1))
+  ->execute();
+```
+
+
+## useDefaults($fields)
+
+设置默认值的字段。
+
+::: tip
+若 `fields()` 和 `useDefaults()` 中指定的字段发生冲突，会抛出异常。
+:::
+
+参数:
+- `$fields`: `array`
+
+  使用表定义中指定的默认值的值数组。
+
+返回值: `this`
+
+
+```php {2}
+db_insert('node')
+  ->useDefaults(array('uid', 'status'))
+  ->fields(array('title'))
+  ->values(array('Example'))
+  ->execute();
+
+// 生成的SQL如下：
+// INSERT INTO {node} (uid, status, title) VALUES (default, default, :db_insert_placeholder_0)
+```
 
 
 ## from(SelectQueryInterface $query)
 
+设置查询对象。这很有用，可以将查询到的结果插入到另一个表中。
+
 参数:
 - `$query`: [SelectQueryInterface](./SelectQueryInterface)
 
+  获取应该插入的行的查询。
+
 返回值: `this`
+
+```php
+$select_query = db_select('node')->fields('node');
+db_insert('node_copy')->from($select_query)->execute();
+
+// 生成的SQL如下:
+// INSERT INTO {node_copy} SELECT node.* FROM {node} node
+```
 
 
 ## execute()
+
+执行当前查询。
 
 返回值: `int` | `null`
 
 
 ## __toString()
 
+返回插入语句。
+
 返回值: `string`
 
+```php
+db_insert('node')
+  ->fields(array('title', 'uid', 'status'))
+  ->values(array('Example', 1, 1))
+  ->__toString();
+
+// 返回如下SQL：
+// INSERT INTO {node} (title, uid, status) VALUES(:db_insert_placeholder_0, :db_insert_placeholder_1, :db_insert_placeholder_2)
+```
 
 ## preExecute()
+
+对查询进行预处理和验证。
 
 返回值: `boolean`
 

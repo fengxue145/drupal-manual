@@ -88,7 +88,7 @@ array(
 记录对所有活动日志键的查询。
 
 参数:
-- `$statement`: `DatabaseStatementInterface`
+- `$statement`: [DatabaseStatementInterface](./DatabaseStatementInterface)
 
     数据库结果集对象。
 

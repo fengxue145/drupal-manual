@@ -64,7 +64,7 @@ $database = array(
 ## $logger
 <Badge>protected</Badge>
 
-- 类型: [DatabaseLog](./databaselog)
+- 类型: [DatabaseLog](./DatabaseLog)
 - 默认值: `NULL`
 
 此连接的数据库日志记录对象。
@@ -85,14 +85,14 @@ $database = array(
 - 类型: `string[]`
 - 默认值: `[]`
 
-用于各种操作的特定驱动程序类的索引。如 [SelectQuery](./selectquery) [InsertQuery](./insertquery) 等
+用于各种操作的特定驱动程序类的索引。如 [SelectQuery](./SelectQuery) [InsertQuery](./InsertQuery) 等
 
 
 ## $statementClass
 <Badge>protected</Badge>
 
 - 类型: `string`
-- 默认值: [DatabaseStatementBase](./databasestatementbase)
+- 默认值: [DatabaseStatementBase](./DatabaseStatementBase)
 
 此连接所使用的结果集对象的类名称。`DatabaseStatementBase` 扩展于 `PDOStatement`
 
@@ -179,7 +179,7 @@ $databases = array(
 ## $schema
 <Badge>protected</Badge>
 
-- 类型: [DatabaseSchema](./databaseschema)
+- 类型: [DatabaseSchema](./DatabaseSchema)
 - 默认值: `NULL`
 
 此连接的结果集对象。
@@ -208,7 +208,7 @@ $databases = array(
 - 类型: `string[]`
 - 默认值: `[]`
 
-在 [prefixTables()](#prefixtables) 中使用的搜索值列表。
+在 [prefixTables()](#prefixTables) 中使用的搜索值列表。
 
 ```php
 [prefixSearch:protected] => Array
@@ -227,7 +227,7 @@ $databases = array(
 - 类型: `string[]`
 - 默认值: `[]`
 
-在 [prefixTables()](#prefixtables) 中使用的替换值列表。
+在 [prefixTables()](#prefixTables) 中使用的替换值列表。
 
 ```php
 [prefixReplace:protected] => Array
@@ -323,7 +323,7 @@ $databases = array(
 
 返回值: `array`
 
-参见 [$connectionOptions](#connectionoptions)
+参见 [$connectionOptions](#connectionOptions)
 
 
 ## prefixTables($sql)
@@ -371,7 +371,7 @@ echo $connection->prefixTables('SELECT * FROM {node}');
 
 返回值: `array`
 
-参见 [$unprefixedTablesMap](#unprefixedtablesmap)
+参见 [$unprefixedTablesMap](#unprefixedTablesMap)
 
 
 ## prepareQuery($query)
@@ -383,7 +383,7 @@ echo $connection->prefixTables('SELECT * FROM {node}');
 
     查询字符串，用 `{}` 包围表名。
 
-返回值: [DatabaseStatementInterface](./databasestatementinterface)
+返回值: [DatabaseStatementInterface](./DatabaseStatementInterface)
 
 
 ## setTarget($target)
@@ -423,14 +423,14 @@ echo $connection->prefixTables('SELECT * FROM {node}');
 设置当前连接的日志对象。
 
 参数:
-- `$logger`: [DatabaseLog](./databaselog)
+- `$logger`: [DatabaseLog](./DatabaseLog)
 
 
 ## getLogger()
 
 获取当前连接的日志对象。
 
-返回值: [DatabaseLog](./databaselog)
+返回值: [DatabaseLog](./DatabaseLog)
 
 
 ## makeSequenceName($table, $field)
@@ -485,9 +485,9 @@ echo $connection->makeSequenceName('drupal', 'node');
 
     用于控制查询如何运行的关联选项数组。默认 `[]`
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultoptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
-返回值: [DatabaseStatementInterface](./databasestatementinterface)
+返回值: [DatabaseStatementInterface](./DatabaseStatementInterface)
 
 
 
@@ -551,7 +551,7 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
     用于控制查询如何运行的关联选项数组。默认 []
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultoptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
 返回值: `SelectQueryInterface`
 
@@ -569,7 +569,7 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
     用于控制查询如何运行的关联选项数组。默认 []
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultoptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
 返回值: `InsertQuery`
 
@@ -587,7 +587,7 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
     用于控制查询如何运行的关联选项数组。默认 []
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultoptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
 返回值: `MergeQuery`
 
@@ -605,7 +605,7 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
     用于控制查询如何运行的关联选项数组。默认 []
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultoptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
 返回值: `UpdateQuery`
 
@@ -623,7 +623,7 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
     用于控制查询如何运行的关联选项数组。默认 []
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultoptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
 返回值: `DeleteQuery`
 
@@ -641,14 +641,14 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
     用于控制查询如何运行的关联选项数组。默认 []
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultoptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
 返回值: `TruncateQuery`
 
 
 ## schema()
 
-返回此连接的结果集 [DatabaseSchema](./databaseschema) 对象
+返回此连接的结果集 [DatabaseSchema](./DatabaseSchema) 对象
 
 返回值: `DatabaseSchema`
 
@@ -729,7 +729,7 @@ SELECT * FROM person WHERE name LIKE '维多\%\_%';
 
 ## startTransaction($name)
 
-在此连接上开启事务或创建一个事务存档点，并返回 [DatabaseTransaction](./databasetransaction) 对象。
+在此连接上开启事务或创建一个事务存档点，并返回 [DatabaseTransaction](./DatabaseTransaction) 对象。
 
 参数:
 - `$name`: `string`
@@ -1017,7 +1017,7 @@ array(
 
     用于控制查询如何运行的关联选项数组。默认 `[]`
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultoptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
 返回值: `DatabaseStatementInterface`
 
@@ -1043,7 +1043,7 @@ array(
 
     用于控制查询如何运行的关联选项数组。默认 `[]`
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultoptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
 返回值: `string`
 

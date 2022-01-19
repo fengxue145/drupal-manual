@@ -1,50 +1,56 @@
 # DatabaseCondition
 
+用于查询中一系列条件的泛型类。
 
 
 ## $conditions
 <Badge>protected</Badge>
 
-- 类型: ``
-- 默认值: ``
+查询条件数组。
+
+- 类型: `array`
+- 默认值: `[]`
 
 
 ## $arguments
 <Badge>protected</Badge>
 
-- 类型: ``
-- 默认值: ``
+查询参数数组。
+
+- 类型: `array`
+- 默认值: `[]`
 
 
 ## $changed
 <Badge>protected</Badge>
 
-- 类型: ``
-- 默认值: ``
+条件是否有所改变。如果条件自上次编译后已更改，则为TRUE; 如果条件已编译且未更改，则为FALSE。
+
+- 类型: `boolean`
+- 默认值: `false`
 
 
 ## $queryPlaceholderIdentifier
 <Badge>protected</Badge>
 
-- 类型: ``
-- 默认值: ``
+此条件编译所依据的查询占位符的标识符。
+
+- 类型: `string`
 
 
 
 ## __construct($conjunction)
 
 参数:
-- ``: ``
-
-返回值: ``
+- `$conjunction`: `string`
+  用于组合条件的运算符: `AND` 或 `OR`
 
 
 ## count()
 
-参数:
-- ``: ``
+返回该条件的大小。条件数组的大小是其条件数组的大小减1，因为其中一个元素是合取。
 
-返回值: ``
+返回值: `int`
 
 
 ## condition($field, $value = NULL, $operator = NULL)

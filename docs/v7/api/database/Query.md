@@ -1,4 +1,5 @@
 # Query
+<Badge>abstract</Badge>
 
 查询生成器的基类。
 
@@ -10,11 +11,15 @@
 ## $connection
 <Badge>protected</Badge>
 
+当前查询的数据库连接对象。
+
 - 类型: [DatabaseConnection](./DatabaseConnection)
 
 
 ## $connectionTarget
 <Badge>protected</Badge>
+
+数据库连接对象的目标。
 
 - 类型: `string`
 
@@ -22,11 +27,15 @@
 ## $connectionKey
 <Badge>protected</Badge>
 
+数据库连接对象的键。
+
 - 类型: `string`
 
 
 ## $queryOptions
 <Badge>protected</Badge>
+
+传递给连接对象的查询选项。
 
 - 类型: `array`
 
@@ -34,26 +43,39 @@
 ## $uniqueIdentifier
 <Badge>protected</Badge>
 
+当前查询对象的唯一标识符。
+
 - 类型: `string`
 
 
 ## $nextPlaceholder
 <Badge>protected</Badge>
 
+占位符计数器。
+
 - 类型: `int`
+- 默认值: `0`
 
 
 ## $comments
 <Badge>protected</Badge>
 
+查询注释列表。
+
 - 类型: `array`
+- 默认值: `[]`
 
 
 ## __construct(DatabaseConnection $connection, $options)
 
 参数:
 - `$connection`: [DatabaseConnection](./DatabaseConnection)
+
+  数据库连接对象。
+
 - `$options`: `array`
+
+  查询选项。
 
 
 ## __sleep()
@@ -85,27 +107,38 @@
 <Badge>abstract</Badge>
 <Badge>protected</Badge>
 
+执行当前查询。
+
 
 ## uniqueIdentifier()
+
+获取当前查询对象的唯一标识符。
 
 返回值: `string`
 
 
-
 ## nextPlaceholder()
+
+获取此查询对象的下一个占位符值。
 
 返回值: `int`
 
 
 ## comment($comment)
 
+为当前查询添加一个注释。
+
 参数:
 - `$comment`: `string`
+
+  注释字符串。
 
 返回值: `this`
 
 
 ## &getComments()
+
+获取当前查询的注释列表。
 
 返回值: `array`
 
