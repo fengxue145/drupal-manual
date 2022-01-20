@@ -45,30 +45,6 @@ module.exports = {
     },
     markdown: {
         // lineNumbers: true,
-        slugify: helper.makedownSlugify
-    },
-    plugins: [
-        [
-            (pluginOptions, context) => ({
-                name: 'md-hash-plugin',
-                extendMarkdown: md => {
-
-                    const link_open = md.renderer.rules.link_open
-                    const link_close = md.renderer.rules.link_close
-
-
-                    md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
-                        console.log('link_open', tokens.content)
-                        return link_open(tokens, idx, options, env, self)
-                    }
-
-                    // md.renderer.rules.link_close = (tokens, idx, options, env, self) => {
-                    //     console.log('link_close', tokens.content)
-                    //     return link_close(tokens, idx, options, env, self)
-                    // }
-
-                }
-            })
-        ]
-    ]
+        slugify: helper.markdownSlugify
+    }
 }

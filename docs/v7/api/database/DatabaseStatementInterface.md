@@ -19,9 +19,8 @@
     class DatabaseStatement_oracle implements Iterator, DatabaseStatementInterface {}
     ```
 
-## 方法
 
-### execute($args, $options)
+## execute($args, $options)
 
 执行一条预处理语句
 
@@ -39,35 +38,35 @@
 返回值: `boolean`
 
 
-### getQueryString()
+## getQueryString()
 
 获取执行的SQL语句。
 
 返回值: `string`
 
 
-### rowCount()
+## rowCount()
 
 返回受最近执行的 `DELETE`、`INSERT` 或 `UPDATE` 语句影响的行数。
 
 详细参见 [PDOStatement::rowCount()](https://www.php.net/manual/zh/pdostatement.rowcount.php)
 
 
-### setFetchMode($mode, ...)
+## setFetchMode($mode, ...)
 
 设置此结果集的默认获取模式。
 
 详细参见 [PDOStatement::setFetchMode()](https://www.php.net/manual/zh/pdostatement.setfetchmode.php)
 
 
-### fetch($fetch_style, $cursor_orientation, $cursor_offset)
+## fetch($fetch_style, $cursor_orientation, $cursor_offset)
 
 从结果集中获取下一条记录。如果没有下一条记录，则为 `FALSE`。
 
 详细参见 [PDOStatement::fetch()](https://www.php.net/manual/zh/pdostatement.fetch.php)
 
 
-### fetchField($index)
+## fetchField($index)
 
 从结果集中获取下一条记录的单个字段。如果没有下一条记录，则为 `FALSE`。
 
@@ -79,28 +78,28 @@
 返回值: `string` | `false`
 
 
-### fetchObject($class_name, $ctor_args)
+## fetchObject($class_name, $ctor_args)
 
 从结果集中获取下一条记录并将其作为对象返回。如果没有下一条记录，则为 `FALSE`。
 
 详细参见 [PDOStatement::fetchObject()](https://www.php.net/manual/zh/pdostatement.fetchobject.php)
 
 
-### fetchAssoc()
+## fetchAssoc()
 
 从结果集中获取下一条记录并将其作为关联数组返回。如果没有下一条记录，则为 `FALSE`。
 
 返回值: `array` | `false`
 
 
-### fetchAll($fetch_style, $fetch_argument, $ctor_args)
+## fetchAll($fetch_style, $fetch_argument, $ctor_args)
 
 返回包含所有结果集行的数组。
 
 详细参见 [PDOStatement::fetchAll()](https://www.php.net/manual/zh/pdostatement.fetchall.php)
 
 
-### fetchCol($index)
+## fetchCol($index)
 
 以索引数组的形式返回结果集的整个单字段列。
 
@@ -112,7 +111,7 @@
 返回值: `array`
 
 
-### fetchAllKeyed($key_index, $value_index)
+## fetchAllKeyed($key_index, $value_index)
 
 以单个关联数组的形式返回整个结果集。
 
@@ -128,7 +127,7 @@
 返回值: `array`
 
 
-### fetchAllAssoc($key, $fetch)
+## fetchAllAssoc($key, $fetch)
 
 将结果集作为给定字段的关联数组返回。如果给定的键出现多次，后面的记录将覆盖前面的记录。
 

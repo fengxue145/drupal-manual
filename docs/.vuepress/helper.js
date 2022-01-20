@@ -78,29 +78,32 @@ function createSidebar($indexes) {
     return sidebar
 }
 
-function makedownSlugify (str) {
-    return str.normalize('NFKD')
+function markdownSlugify (str) {
+    if (/^[a-zA-Z_&]+\(.*\)$/.test(str)) {
         // Remove function params
-        .replace(/([a-zA-Z_]+)\([^)]+\)/i, '$1')
-        // Remove accents
-        .replace(rCombining, '')
-        // Remove control characters
-        .replace(rControl, '')
-        // Replace special characters
-        .replace(rSpecial, '-')
-        // Remove continuous separators
-        .replace(/\-{2,}/g, '-')
-        // Remove prefixing and trailing separators
-        .replace(/^\-+|\-+$/g, '')
-        // ensure it doesn't start with a number (#121)
-        .replace(/^(\d)/, '_$1')
-        // lowercase
-        //.toLowerCase()
+        return str.replace(/^&?([a-zA-Z_]+)\(.*\)$/i, '$1')
+    } else {
+        return str.normalize('NFKD')
+            // Remove accents
+            .replace(rCombining, '')
+            // Remove control characters
+            .replace(rControl, '')
+            // Replace special characters
+            .replace(rSpecial, '-')
+            // Remove continuous separators
+            .replace(/\-{2,}/g, '-')
+            // Remove prefixing and trailing separators
+            .replace(/^\-+|\-+$/g, '')
+            // ensure it doesn't start with a number (#121)
+            .replace(/^(\d)/, '_$1')
+            // lowercase
+            //.toLowerCase()
+    }
 }
 
 
 module.exports = {
     reslovePath,
     createSidebar,
-    makedownSlugify
+    markdownSlugify
 }

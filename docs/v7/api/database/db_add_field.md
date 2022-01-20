@@ -1,3 +1,8 @@
+---
+sidebarDepth: 0
+---
+
+
 ## db_add_field($table, $field, $spec, $keys_new = array())
 
 向表中添加新字段。

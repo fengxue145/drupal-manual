@@ -73,7 +73,12 @@ function renderLink (h, to, text, active, level) {
     }
   }
 
-  return h('RouterLink', component, text.replace(/([a-zA-Z_]+)\([^)]+\)/i, '$1'))
+  // 不知道为啥，__construct 读取的是否变成了 _construct
+  if (text.startsWith('_construct')) {
+    text = '_' + text
+  }
+
+  return h('RouterLink', component, text.replace(/^&?([a-zA-Z_]+)\([^)]+\)$/i, '$1()'))
 }
 
 function renderChildren (h, children, path, route, maxDepth, depth = 1) {
