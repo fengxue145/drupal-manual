@@ -54,12 +54,12 @@
                             "path": "mysql/InsertQuery_mysql"
                         },
                         {
-                            "title": "TruncateQuery_mysql",
-                            "path": "mysql/TruncateQuery_mysql"
-                        },
-                        {
                             "title": "UpdateQuery_mysql",
                             "path": "mysql/UpdateQuery_mysql"
+                        },
+                        {
+                            "title": "TruncateQuery_mysql",
+                            "path": "mysql/TruncateQuery_mysql"
                         }
                     ]
                 },
@@ -79,12 +79,12 @@
                             "path": "pgsql/DatabaseTasks_pgsql"
                         },
                         {
-                            "title": "InsertQuery_pgsql",
-                            "path": "pgsql/InsertQuery_pgsql"
-                        },
-                        {
                             "title": "SelectQuery_pgsql",
                             "path": "pgsql/SelectQuery_pgsql"
+                        },
+                        {
+                            "title": "InsertQuery_pgsql",
+                            "path": "pgsql/InsertQuery_pgsql"
                         },
                         {
                             "title": "UpdateQuery_pgsql",
@@ -104,28 +104,32 @@
                             "path": "sqlite/DatabaseSchema_sqlite"
                         },
                         {
+                            "title": "DatabaseStatement_sqlite",
+                            "path": "sqlite/DatabaseStatement_sqlite"
+                        },
+                        {
                             "title": "DatabaseTasks_sqlite",
                             "path": "sqlite/DatabaseTasks_sqlite"
-                        },
-                        {
-                            "title": "DeleteQuery_sqlite",
-                            "path": "sqlite/DeleteQuery_sqlite"
-                        },
-                        {
-                            "title": "InsertQuery_sqlite",
-                            "path": "sqlite/InsertQuery_sqlite"
                         },
                         {
                             "title": "SelectQuery_sqlite",
                             "path": "sqlite/SelectQuery_sqlite"
                         },
                         {
-                            "title": "TruncateQuery_sqlite",
-                            "path": "sqlite/TruncateQuery_sqlite"
+                            "title": "InsertQuery_sqlite",
+                            "path": "sqlite/InsertQuery_sqlite"
                         },
                         {
                             "title": "UpdateQuery_sqlite",
                             "path": "sqlite/UpdateQuery_sqlite"
+                        },
+                        {
+                            "title": "DeleteQuery_sqlite",
+                            "path": "sqlite/DeleteQuery_sqlite"
+                        },
+                        {
+                            "title": "TruncateQuery_sqlite",
+                            "path": "sqlite/TruncateQuery_sqlite"
                         }
                     ]
                 },
@@ -134,16 +138,8 @@
                     "path": "Database"
                 },
                 {
-                    "title": "DatabaseCondition",
-                    "path": "DatabaseCondition"
-                },
-                {
                     "title": "DatabaseConnection",
                     "path": "DatabaseConnection"
-                },
-                {
-                    "title": "DatabaseLog",
-                    "path": "DatabaseLog"
                 },
                 {
                     "title": "DatabaseSchema",
@@ -160,6 +156,14 @@
                 {
                     "title": "DatabaseStatementPrefetch",
                     "path": "DatabaseStatementPrefetch"
+                },
+                {
+                    "title": "DatabaseLog",
+                    "path": "DatabaseLog"
+                },
+                {
+                    "title": "DatabaseCondition",
+                    "path": "DatabaseCondition"
                 },
                 {
                     "title": "DatabaseTransaction",
@@ -196,178 +200,173 @@
             ]
         },
         {
-            "title": "Function",
-            "children": [
-                {
-                    "title": "db_add_field",
-                    "path": "db_add_field",
-                    "sidebarDepth": 0
-                },
-                {
-                    "title": "db_add_index",
-                    "path": "db_add_index"
-                },
-                {
-                    "title": "db_add_primary_key",
-                    "path": "db_add_primary_key"
-                },
-                {
-                    "title": "db_add_unique_key",
-                    "path": "db_add_unique_key"
-                },
-                {
-                    "title": "db_and",
-                    "path": "db_and"
-                },
-                {
-                    "title": "db_change_field",
-                    "path": "db_change_field"
-                },
-                {
-                    "title": "db_close",
-                    "path": "db_close"
-                },
-                {
-                    "title": "db_condition",
-                    "path": "db_condition"
-                },
-                {
-                    "title": "db_create_table",
-                    "path": "db_create_table"
-                },
-                {
-                    "title": "db_delete",
-                    "path": "db_delete"
-                },
-                {
-                    "title": "db_driver",
-                    "path": "db_driver"
-                },
-                {
-                    "title": "db_drop_field",
-                    "path": "db_drop_field"
-                },
-                {
-                    "title": "db_drop_index",
-                    "path": "db_drop_index"
-                },
-                {
-                    "title": "db_drop_primary_key",
-                    "path": "db_drop_primary_key"
-                },
-                {
-                    "title": "db_drop_table",
-                    "path": "db_drop_table"
-                },
-                {
-                    "title": "db_drop_unique_key",
-                    "path": "db_drop_unique_key"
-                },
-                {
-                    "title": "db_escape_field",
-                    "path": "db_escape_field"
-                },
-                {
-                    "title": "db_escape_table",
-                    "path": "db_escape_table"
-                },
-                {
-                    "title": "db_field_exists",
-                    "path": "db_field_exists"
-                },
-                {
-                    "title": "db_field_names",
-                    "path": "db_field_names"
-                },
-                {
-                    "title": "db_field_set_default",
-                    "path": "db_field_set_default"
-                },
-                {
-                    "title": "db_field_set_no_default",
-                    "path": "db_field_set_no_default"
-                },
-                {
-                    "title": "db_find_tables_d8",
-                    "path": "db_find_tables_d8"
-                },
-                {
-                    "title": "db_find_tables",
-                    "path": "db_find_tables"
-                },
-                {
-                    "title": "db_ignore_slave",
-                    "path": "db_ignore_slave"
-                },
-                {
-                    "title": "db_index_exists",
-                    "path": "db_index_exists"
-                },
-                {
-                    "title": "db_insert",
-                    "path": "db_insert"
-                },
-                {
-                    "title": "db_like",
-                    "path": "db_like"
-                },
-                {
-                    "title": "db_merge",
-                    "path": "db_merge"
-                },
-                {
-                    "title": "db_next_id",
-                    "path": "db_next_id"
-                },
-                {
-                    "title": "db_or",
-                    "path": "db_or"
-                },
-                {
-                    "title": "db_query_range",
-                    "path": "db_query_range"
-                },
-                {
-                    "title": "db_query_temporary",
-                    "path": "db_query_temporary"
-                },
-                {
-                    "title": "db_query",
-                    "path": "db_query"
-                },
-                {
-                    "title": "db_rename_table",
-                    "path": "db_rename_table"
-                },
-                {
-                    "title": "db_select",
-                    "path": "db_select"
-                },
-                {
-                    "title": "db_set_active",
-                    "path": "db_set_active"
-                },
-                {
-                    "title": "db_table_exists",
-                    "path": "db_table_exists"
-                },
-                {
-                    "title": "db_transaction",
-                    "path": "db_transaction"
-                },
-                {
-                    "title": "db_truncate",
-                    "path": "db_truncate"
-                },
-                {
-                    "title": "db_update",
-                    "path": "db_update"
-                },
-                {
-                    "title": "db_xor",
-                    "path": "db_xor"
-                }
-            ]
+            "title": "db_query",
+            "path": "db_query"
+        },
+        {
+            "title": "db_query_range",
+            "path": "db_query_range"
+        },
+        {
+            "title": "db_query_temporary",
+            "path": "db_query_temporary"
+        },
+        {
+            "title": "db_select",
+            "path": "db_select"
+        },
+        {
+            "title": "db_merge",
+            "path": "db_merge"
+        },
+        {
+            "title": "db_like",
+            "path": "db_like"
+        },
+        {
+            "title": "db_condition",
+            "path": "db_condition"
+        },
+        {
+            "title": "db_insert",
+            "path": "db_insert"
+        },
+        {
+            "title": "db_update",
+            "path": "db_update"
+        },
+        {
+            "title": "db_delete",
+            "path": "db_delete"
+        },
+        {
+            "title": "db_truncate",
+            "path": "db_truncate"
+        },
+        {
+            "title": "db_transaction",
+            "path": "db_transaction"
+        },
+        {
+            "title": "db_and",
+            "path": "db_and"
+        },
+        {
+            "title": "db_or",
+            "path": "db_or"
+        },
+        {
+            "title": "db_xor",
+            "path": "db_xor"
+        },
+        {
+            "title": "db_table_exists",
+            "path": "db_table_exists"
+        },
+        {
+            "title": "db_field_exists",
+            "path": "db_field_exists"
+        },
+        {
+            "title": "db_index_exists",
+            "path": "db_index_exists"
+        },
+        {
+            "title": "db_create_table",
+            "path": "db_create_table"
+        },
+        {
+            "title": "db_add_field",
+            "path": "db_add_field"
+        },
+        {
+            "title": "db_add_primary_key",
+            "path": "db_add_primary_key"
+        },
+        {
+            "title": "db_add_index",
+            "path": "db_add_index"
+        },
+        {
+            "title": "db_add_unique_key",
+            "path": "db_add_unique_key"
+        },
+        {
+            "title": "db_drop_table",
+            "path": "db_drop_table"
+        },
+        {
+            "title": "db_drop_field",
+            "path": "db_drop_field"
+        },
+        {
+            "title": "db_drop_primary_key",
+            "path": "db_drop_primary_key"
+        },
+        {
+            "title": "db_drop_index",
+            "path": "db_drop_index"
+        },
+        {
+            "title": "db_drop_unique_key",
+            "path": "db_drop_unique_key"
+        },
+        {
+            "title": "db_escape_table",
+            "path": "db_escape_table"
+        },
+        {
+            "title": "db_escape_field",
+            "path": "db_escape_field"
+        },
+        {
+            "title": "db_find_tables",
+            "path": "db_find_tables"
+        },
+        {
+            "title": "db_find_tables_d8",
+            "path": "db_find_tables_d8"
+        },
+        {
+            "title": "db_field_names",
+            "path": "db_field_names"
+        },
+        {
+            "title": "db_field_set_default",
+            "path": "db_field_set_default"
+        },
+        {
+            "title": "db_field_set_no_default",
+            "path": "db_field_set_no_default"
+        },
+        {
+            "title": "db_rename_table",
+            "path": "db_rename_table"
+        },
+        {
+            "title": "db_change_field",
+            "path": "db_change_field"
+        },
+        {
+            "title": "db_next_id",
+            "path": "db_next_id"
+        },
+        {
+            "title": "db_ignore_slave",
+            "path": "db_ignore_slave"
+        },
+        {
+            "title": "db_set_active",
+            "path": "db_set_active"
+        },
+        {
+            "title": "db_driver",
+            "path": "db_driver"
+        },
+
+        {
+            "title": "db_close",
+            "path": "db_close"
         }
     ]
 }

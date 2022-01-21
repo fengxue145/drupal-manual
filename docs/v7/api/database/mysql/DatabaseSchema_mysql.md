@@ -14,17 +14,52 @@ Mysql数据库模式的实现，继承 [DatabaseSchema](../DatabaseSchema)。
     Mysql中一个列注释的最大长度。
 
 
-## getPrefixInfo($table = 'default', $add_prefix = TRUE)
+## getPrefixInfo($table, $add_prefix)
 <Badge>protected</Badge>
 
-从前缀中获取关于表和数据库名的信息。
+获取数据库名、表名和前缀信息。
 
-包含数据库、表名和前缀信息的键控数组。
+参数:
+- `$table`: `string`
+
+  数据表名称。默认 `default`
+
+- `add_prefix`: `boolean`
+
+  是否添加表前缀。默认 `true`
+
+返回值: `array`
+
+```php
+array(
+  'prefix'   => '', // 表前缀
+  'database' => '', // 数据库名
+  'table'    => '', // 数据表名
+)
+```
 
 
-
-## buildTableNameCondition($table_name, $operator = '=', $add_prefix = TRUE)
+## buildTableNameCondition($table_name, $operator, $add_prefix)
 <Badge>protected</Badge>
+
+构建一个条件，根据标准的 `information_schema` 匹配表名。
+
+参见 [getComment()](#getComment)
+
+参数:
+- `$table_name`: `string`
+
+  数据表名称。
+
+- `$operator`: `string`
+
+  条件运算符。默认 `=`
+
+- `$add_prefix`: `boolean`
+
+  是否添加表前缀。默认 `true`
+
+返回值: [DatabaseCondition](../DatabaseCondition)
 
 
 ## createTableSql($name, $table)
@@ -39,7 +74,7 @@ Mysql数据库模式的实现，继承 [DatabaseSchema](../DatabaseSchema)。
 
 - `$table`: `array`
 
-    `Schema API` 的表定义数组。
+    [Schema API]() 的表定义数组。
 
 返回值: `string`
 
@@ -49,7 +84,9 @@ Mysql数据库模式的实现，继承 [DatabaseSchema](../DatabaseSchema)。
 
 为表创建或修改时使用的字段创建SQL字符串。
 
-// 在将一个字段从模式定义传递到这个函数之前，必须由 [db_process_field()](#db_process_field) 处理。
+::: tip
+在将一个 [Schema API]() 的字段定义数组传递到这个函数之前，必须由 [processField()](#processField) 处理。
+:::
 
 参数:
 - `$name`: `string`
@@ -58,7 +95,7 @@ Mysql数据库模式的实现，继承 [DatabaseSchema](../DatabaseSchema)。
 
 - `$spec`: `array`
 
-    `Schema API` 的字段定义数组。
+    [Schema API]() 的字段定义数组。
 
 返回值: `string`
 
@@ -71,7 +108,7 @@ Mysql数据库模式的实现，继承 [DatabaseSchema](../DatabaseSchema)。
 参数:
 - `$spec`: `array`
 
-    `Schema API` 的表定义数组。
+    [Schema API]() 的表定义数组。
 
 返回值: `string`
 
@@ -103,14 +140,14 @@ Mysql数据库模式的实现，继承 [DatabaseSchema](../DatabaseSchema)。
 参数:
 - `$field`: `array`
 
-    `Schema API` 的字段定义数组。
+    [Schema API]() 的字段定义数组。
 
 返回值: `array`
 
 
 ## getFieldTypeMap()
 
-返回 `Schema API` 的字段名到数据库本地字段类型的映射数组。
+获取 [Schema API]() 的字段名到数据库本地字段类型的映射数组。
 
 返回值: `array`
 
@@ -175,7 +212,6 @@ DROP TABLE {$table}
 
 返回值: `boolean`
 
-
 ```php
 $schema->addField('file', 'name', array(
     'type'        => 'varchar',
@@ -199,6 +235,56 @@ $schema->addField('file', 'mime', array(
 ```sql
 ALTER TABLE {file} ADD `name` VARCHAR(256) NOT NULL DEFAULT '' COMMENT 'File basename.'
 ALTER TABLE {file} ADD `mime` VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'File mime.', ADD INDEX `ik_name` (`name`)
+```
+
+
+## changeField($table, $field, $field_new, $spec, $keys_new)
+
+修改数据表中某个字段的定义。
+
+参数:
+- `$table`: `string`
+
+    要操作的数据表名称。
+
+- `$field`: `string`
+
+    要修改的字段名称。
+
+- `$field_new`: `string`
+
+    字段的新名称。
+
+- `$spec`: `array`
+
+    [Schema API]() 的字段定义数组。
+
+- `keys_new`: `array`
+
+    向数据表中追加索引。[Schema API]() 的索引定义数组，默认 `[]`
+
+```php
+$schema->changeField('file', 'name', 'filename', array(
+    'type'        => 'varchar',
+    'length'      => 128,
+    'not null'    => FALSE,
+    'description' => 'File basename.',
+));
+$schema->changeField('file', 'mime', 'filemime', array(
+    'type'        => 'int',
+    'size'        => 'tiny',
+    'unsigned'    => TRUE,
+    'not null'    => FALSE,
+    'description' => 'File mime.',
+), array(
+    'indexes'     => array('ik_mime' => array('filemime'))
+));
+```
+
+生成的SQL语句如下：
+```sql
+ALTER TABLE {file} CHANGE `name` `filename` VARCHAR(128) NULL DEFAULT NULL COMMENT 'File basename.'
+ALTER TABLE {file} CHANGE `mime` `filemime` TINYINT unsigned NULL DEFAULT NULL COMMENT 'File mime.', ADD INDEX `ik_mime` (`filemime`)
 ```
 
 
@@ -259,26 +345,6 @@ ALTER TABLE {$table} ALTER COLUMN `$field` SET DEFAULT $default
 
 ```sql
 ALTER TABLE {$table} ALTER COLUMN `$field` DROP DEFAULT
-```
-
-
-## indexExists($table, $name)
-
-判断数据表中是否存在指定的普通索引。
-
-参数:
-- `$table`: `string`
-
-    要检查的数据表名称。
-
-- `$name`: `string`
-
-    普通索引的名称。
-
-返回值: `boolean`
-
-```sql
-SHOW INDEX FROM {$table} WHERE key_name = $name
 ```
 
 
@@ -362,28 +428,134 @@ ALTER TABLE {$table} DROP KEY `$name`
 
 添加普通索引。
 
+参数:
+- `$table`: `string`
+
+    要操作的数据表名称。
+
+- `$name`: `string`
+
+    普通索引的名称。
+
+- `$fields`: `array`
+
+    普通索引的字段列表。
+
+```sql
+ALTER TABLE {$table} ADD INDEX `$name` (...$fields)
+```
+
 
 ## dropIndex($table, $name)
 
 删除普通索引。
 
+参数:
+- `$table`: `string`
 
-## changeField($table, $field, $field_new, $spec, $keys_new = array())
+    要操作的数据表名称。
 
-修改字段定义。
+- `$name`: `string`
+
+    普通索引的名称。
+
+返回值: `boolean`
+
+```sql
+ALTER TABLE {$table} DROP INDEX `$name`
+```
 
 
 ## prepareComment($comment, $length = NULL)
 
+返回经过预处理后的表/字段注释。
+
+参数:
+- `$comment`: `string`
+
+  注释字符串。
+
+- `$length`: `int`
+
+  字符串的最大长度。默认 `NULL` 当前字符串长度
+
+返回值: `string`
+
+
 ## getComment($table, $column = NULL)
 
+获取表/字段注释。
+
+参数:
+- `$table`: `string`
+
+    数据表名称。
+
+- `$column`: `string`
+
+    字段名称。默认 `NULL` 获取表注释
+
+返回值: `string`
+
+```php
+$schema->getComment('node');
+```
+
+生成的SQL语句如下:
+```sql
+SELECT
+  table_comment AS table_comment
+FROM information_schema.tables WHERE
+  (table_schema = :db_name) AND (table_name = :table_name)
+```
+
+
 ## tableExists($table)
+
+判断指定的数据表是否存在。
+
+参数:
+- `$table`: `string`
+
+    数据表名称。
+
+返回值: `boolean`
 
 
 ## fieldExists($table, $column)
 
+判断字段是否存在。
+
+参数:
+- `$table`: `string`
+
+    数据表名称。
+
+- `$column`: `string`
+
+    字段名称。
+
+返回值: `boolean`
 
 
+## indexExists($table, $name)
+
+判断数据表中是否存在指定的普通索引。
+
+参数:
+- `$table`: `string`
+
+    要检查的数据表名称。
+
+- `$name`: `string`
+
+    普通索引的名称。
+
+返回值: `boolean`
+
+```sql
+SHOW INDEX FROM {$table} WHERE key_name = $name
+```
 
 
 

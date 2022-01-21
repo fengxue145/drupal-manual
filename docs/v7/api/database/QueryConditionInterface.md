@@ -1,13 +1,12 @@
 # QueryConditionInterface
 <Badge>interface</Badge>
 
-查询条件子句的接口。
-
+构建查询 `WHERE` 子句的接口。
 
 
 ## condition($field, $value, $operator)
 
-构建最常见的条件子句。
+添加最常见的条件子句。
 
 参数:
 - `$field`: `string`
@@ -29,7 +28,7 @@
 
 ## where($snippet, $args)
 
-向查询添加任意的 `WHERE` 子句。
+添加任意的 `WHERE` 子句。
 
 参数:
 - `$snippet`: `string`
@@ -38,7 +37,7 @@
 
 - `$args`: `array`
 
-    占位符参数数组。
+    占位符参数数组。默认 `[]`
 
 返回值: `this`
 
@@ -63,7 +62,7 @@
 返回值: `this`
 
 
-## exists(SelectQueryInterface $select)
+## exists($select)
 
 设置指定子查询返回值的条件。
 
@@ -75,7 +74,7 @@
 返回值: `this`
 
 
-## notExists(SelectQueryInterface $select)
+## notExists($select)
 
 设置指定子查询不返回值的条件。
 
@@ -91,7 +90,7 @@
 
 获取此条件子句中所有条件的完整列表。
 
-此方法通过引用返回。这允许alter钩子直接访问数据结构，并在编译之前操作它。
+此方法通过引用返回。这允许 `alter` 钩子直接访问数据结构，并在编译之前操作它。
 
 返回值: `array`
 
@@ -103,15 +102,21 @@
 返回值: `array`
 
 
-## compile(DatabaseConnection $connection, QueryPlaceholderInterface $queryPlaceholder)
+## compile($connection, $queryPlaceholder)
 
 编译保存的条件以供以后检索。
 
-编译保存的条件以供以后检索。这个方法不返回任何东西，只是准备通过toString()和arguments()检索的数据。
+这个方法不返回任何东西，只是准备通过 `__toString()` 和 `arguments()` 检索的数据。
 
 参数:
 - `$connection`: [DatabaseConnection](./DatabaseConnection)
+
+    数据库连接。
+
 - `$queryPlaceholder`: [QueryPlaceholderInterface](./QueryPlaceholderInterface)
+
+    该条件所属的查询。如果没有给出，则使用当前查询。
+
 
 ## compiled()
 

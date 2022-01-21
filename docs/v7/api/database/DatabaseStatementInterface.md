@@ -1,28 +1,14 @@
 # DatabaseStatementInterface
+<Badge>interface</Badge>
 
 数据库预处理语句结果集接口。
 
 该类中的一些方法被有意注释掉了。由于PHP定义 `PDoStatement` 的方式发生了变化，我们不能为那些在 `5.2.6` 以上版本和更高版本之间工作的方法定义签名。参见：[http://bugs.php.net/bug.php?id=42452](http://bugs.php.net/bug.php?id=42452)
 
 
-## 实现方式
-
-- 子类应该扩展 [PDOStatement](./pdostatement) 类
-
-    ```php
-    class DatabaseStatement_oracle extends PDOStatement implements DatabaseStatementInterface {}
-    ```
-
-- 自定义类必须在实现 `DatabaseStatementInterface` 前先实现 `Iterator` 接口
-
-    ```php
-    class DatabaseStatement_oracle implements Iterator, DatabaseStatementInterface {}
-    ```
-
-
 ## execute($args, $options)
 
-执行一条预处理语句
+执行一条预处理语句。
 
 参数:
 - `$args`: `array`
@@ -33,7 +19,7 @@
 
     用于控制查询如何运行的关联选项数组。默认 `[]`
 
-    详细信息请参阅 [DatabaseConnection::defaultOptions()](./DatabaseConnection.html#defaultOptions)
+    详细信息请参阅 [DatabaseConnection::defaultOptions()](../DatabaseConnection.html#defaultOptions)
 
 返回值: `boolean`
 
@@ -68,7 +54,7 @@
 
 ## fetchField($index)
 
-从结果集中获取下一条记录的单个字段。如果没有下一条记录，则为 `FALSE`。
+从结果集中获取下一条记录的单个字段值。如果没有下一条记录，则为 `FALSE`。
 
 参数:
 - `$index`: `number`
@@ -143,6 +129,22 @@
     如果设置为 `PDO::FETCH_ASSOC` `PDO::FETCH_NUM` `PDO::FETCH_BOTH` 其中一个，返回数组；对于任何其他值，返回对象数组。
 
 返回值: `array`
+
+
+
+## 实现方式
+
+- 子类应该扩展 [PDOStatement](./pdostatement) 类，并实现 `DatabaseStatementInterface` 接口
+
+    ```php
+    class DatabaseStatement_oracle extends PDOStatement implements DatabaseStatementInterface {}
+    ```
+
+- 自定义类必须在实现 `DatabaseStatementInterface` 前先实现 `Iterator` 接口
+
+    ```php
+    class DatabaseStatement_oracle implements Iterator, DatabaseStatementInterface {}
+    ```
 
 
 ## 源代码

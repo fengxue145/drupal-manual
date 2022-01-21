@@ -3,7 +3,30 @@
 
 基数据库API类。
 
-这个类提供了 `PHP` 中 `PDO` 数据库抽象类的特定于 `drupal` 的扩展。每个数据库驱动程序实现都必须提供一个具体的实现，以支持该数据库所需的特殊处理。
+这个类提供了PHP中 `PDO` 数据库抽象类的特定于 drupal 的扩展。每个数据库驱动程序实现都必须提供一个具体的实现，以支持该数据库所需的特殊处理。
+
+
+## $key
+<Badge>protected</Badge>
+
+- 类型: `string`
+- 默认值: `NULL`
+
+表示此连接的键。
+
+键是标识数据库连接的唯一字符串。一个连接可以是一个服务器，也可以是一个主从集群(使用target在主从之间进行选择)。
+
+```php {3,6}
+// default 和 extra 为数据库的键
+$database = array(
+    'default' => array(
+        ...
+    ),
+    'extra'   => array(
+        ...
+    )
+);
+```
 
 
 ## $target
@@ -14,48 +37,16 @@
 
 数据库目标的名称。
 
-```php {4,11}
-// default 和 slave 为目标数据库
+```php {4,7}
+// default 和 slave 为数据库目标
 $database = array(
     'default' => array(
         'default' => array(
-            'driver'       => 'mysql',
-            'database'     => 'drupal-01',
-            'username'     => 'root',
-            'password'     => '123456',
-            'host'         => '192.168.1.20',
+            ...
         ),
         'slave'  => array(
-            array(
-                'driver'   => 'mysql',
-                'database' => 'drupal-02',
-                'username' => 'root',
-                'password' => '123456',
-                'host'     => '192.168.1.21',
-            ),
             ...
         )
-    )
-);
-```
-
-
-## $key
-<Badge>protected</Badge>
-
-- 类型: `string`
-- 默认值: `NULL`
-
-表示此连接的键。键是标识数据库连接的唯一字符串。一个连接可以是一个服务器，也可以是一个主从集群(使用target在主从之间进行选择)。
-
-```php {3,6}
-// default 和 extra 为数据库的键
-$database = array(
-    'default' => array(
-        ...
-    ),
-    'extra'   => array(
-        ...
     )
 );
 ```
@@ -85,7 +76,16 @@ $database = array(
 - 类型: `string[]`
 - 默认值: `[]`
 
-用于各种操作的特定驱动程序类的索引。如 [SelectQuery](./SelectQuery) [InsertQuery](./InsertQuery) 等
+用于各种操作的特定驱动程序类的索引。
+
+```php
+[driverClasses:protected] => Array
+(
+    [MergeQuery] => MergeQuery
+    [SelectQuery] => SelectQuery
+    [InsertQuery] => InsertQuery_mysql
+)
+```
 
 
 ## $statementClass
@@ -94,7 +94,7 @@ $database = array(
 - 类型: `string`
 - 默认值: [DatabaseStatementBase](./DatabaseStatementBase)
 
-此连接所使用的结果集对象的类名称。`DatabaseStatementBase` 扩展于 `PDOStatement`
+此连接所使用的结果集对象的类名称。
 
 
 ## $transactionSupport
@@ -112,7 +112,7 @@ $database = array(
 - 类型: `boolean`
 - 默认值: `FALSE`
 
-此数据库连接是否支持事务性DDL。默认设置为FALSE，因为很少有数据库支持此特性。
+此数据库连接是否支持事务性DDL。默认 `FALSE` 因为很少有数据库支持此特性。
 
 
 ## $temporaryNameIndex
@@ -141,36 +141,19 @@ $database = array(
 此连接对象的连接信息。
 
 ```php
-// settings.php
-$databases = array(
-    'default' => array (
-        'database' => 'drupal_local',
-        'username' => 'root',
-        'password' => '123456',
-        'host' => '127.0.0.1',
-        'port' => '3308',
-        'driver' => 'mysql',
-        'prefix' => array(
-            'default' => 'shared_',
-            'actions' => 'slave2_',
-            'batch' => 'slave2_',
-        ),
-    ),
-);
-
 [connectionOptions:protected] => Array
 (
-    [database] => drupal_local
+    [database] => drupal7
     [username] => root
-    [password] => 123456
+    [password] => root
     [host] => 127.0.0.1
-    [port] => 3308
+    [port] => 3306
     [driver] => mysql
     [prefix] => Array
         (
-            [default] => shared_
-            [actions] => slave2_
-            [batch] => slave2_
+            [default] => drupal_
+            [actions] => shared_
+            [batch] => shared_
         )
 )
 ```
@@ -188,7 +171,7 @@ $databases = array(
 ## $prefixes
 <Badge>protected</Badge>
 
-- 类型: `string[]`
+- 类型: `array`
 - 默认值: `[]`
 
 此连接使用的表前缀列表。
@@ -196,9 +179,9 @@ $databases = array(
 ```php
 [prefixes:protected] => Array
 (
-    [default] => shared_
-    [actions] => slave2_
-    [batch] => slave2_
+    [default] => drupal_
+    [actions] => shared_
+    [batch] => shared_
 )
 ```
 
@@ -232,9 +215,9 @@ $databases = array(
 ```php
 [prefixReplace:protected] => Array
 (
-    [0] => `slave2_actions`
-    [1] => `slave2_batch`
-    [2] => `shared_
+    [0] => `shared_actions`
+    [1] => `shared_batch`
+    [2] => `drupal_
     [3] => `
 )
 ```
@@ -248,6 +231,21 @@ $databases = array(
 
 转义的数据库、表和字段名列表，以未转义的名称作为键值。
 
+```php
+[escapedNames:protected] => Array
+(
+    [cache_bootstrap] => cache_bootstrap
+    [cid] => cid
+    [serialized] => serialized
+    [created] => created
+    [expire] => expire
+    [data] => data
+    [cache_update.cid] => cache_update.cid
+    [cache_update] => cache_update
+    [cache] => cache
+)
+```
+
 
 ## $escapedAliases
 <Badge>protected</Badge>
@@ -257,6 +255,20 @@ $databases = array(
 
 转义别名列表，以未转义别名为键值。
 
+```php
+[escapedAliases:protected] => Array
+(
+    [expression] => expression
+    [cache_bootstrap] => cache_bootstrap
+    [cache_update] => cache_update
+    [cid] => cid
+    [data] => data
+    [created] => created
+    [expire] => expire
+    [serialized] => serialized
+)
+```
+
 
 ## $unprefixedTablesMap
 <Badge>protected</Badge>
@@ -264,13 +276,13 @@ $databases = array(
 - 类型: `string[]`
 - 默认值: `[]`
 
-无前缀表名列表，由前缀表名作为键值。
+无前缀表名列表，以前缀表名作为键值。
 
 ```php
 [unprefixedTablesMap:protected] => Array
 (
-    [slave2_actions] => actions
-    [slave2_batch] => batch
+    [shared_actions] => actions
+    [shared_batch] => batch
 )
 ```
 
@@ -328,7 +340,11 @@ $databases = array(
 
 ## prefixTables($sql)
 
-向查询语句中的所有表追加表前缀。
+将查询字符串中的所有表添加表前缀，并返回处理后的查询字符串。
+
+::: tip
+要添加前缀的表，必须使用 `{}` 包裹起来。
+:::
 
 参数:
 - `$sql`: `string`
@@ -355,7 +371,7 @@ echo $connection->prefixTables('SELECT * FROM {node}');
 
 ## tablePrefix($table)
 
-查询表的前缀。
+返回表的前缀字符串。
 
 参数:
 - `$table`: `string`
@@ -376,7 +392,9 @@ echo $connection->prefixTables('SELECT * FROM {node}');
 
 ## prepareQuery($query)
 
-对查询字符串进行预处理。
+准备查询字符串并返回 `Statement` 对象。
+
+这个方法缓存准备好的语句，在可能的情况下重用它们。它还为用 `{}` 括起来的表名添加前缀。
 
 参数:
 - `$query`: `string`
@@ -393,7 +411,7 @@ echo $connection->prefixTables('SELECT * FROM {node}');
 参数:
 - `$target`: `string`
 
-    默认 `NULL`。
+    数据库目标。默认 `NULL` 将完全禁用日志记录
 
 
 ## getTarget()
@@ -410,6 +428,8 @@ echo $connection->prefixTables('SELECT * FROM {node}');
 参数:
 - `$key`: `string`
 
+    数据库键。
+
 
 ## getKey()
 
@@ -425,10 +445,12 @@ echo $connection->prefixTables('SELECT * FROM {node}');
 参数:
 - `$logger`: [DatabaseLog](./DatabaseLog)
 
+    数据库日志对象。
+
 
 ## getLogger()
 
-获取当前连接的日志对象。
+获取当前连接的数据库日志对象。
 
 返回值: [DatabaseLog](./DatabaseLog)
 
@@ -450,7 +472,7 @@ echo $connection->prefixTables('SELECT * FROM {node}');
 
 ```php
 echo $connection->makeSequenceName('drupal', 'node');
-// output: {drupal}_node_seq
+// output: main_drupal_node_seq
 ```
 
 
@@ -459,7 +481,7 @@ echo $connection->makeSequenceName('drupal', 'node');
 将查询注释数组扁平化为单个注释字符串。同时还会过滤字符串，以避免 `SQL` 注入。
 
 参数:
-- `$comments`: `string[]`
+- `$comments`: `array`
 
     查询注释字符串的数组。
 
@@ -467,18 +489,20 @@ echo $connection->makeSequenceName('drupal', 'node');
 
 
 ## query($query, $args, $options)
+
+对数据库执行查询字符串。
+
 参数:
 - `$query`: `string`
 
-    要执行的查询。在大多数情况下，这将是一个包含有占位符的 `SQL` 查询的字符串。也可以传递一个已经准备好的`DatabaseStatementInterface` 实例，以便允许调用代码手动将变量绑定到查询。
+    要执行的查询。
 
-    如果传递了`DatabaseStatementInterface`，则 `$args` 数组将被忽略。
+    在大多数情况下，这将是一个包含有占位符的 `SQL` 查询的字符串。也可以传递一个已经准备好的 [DatabaseStatementInterface](./DatabaseStatementInterface) 实例，以便允许调用代码手动将变量绑定到查询。如果传递了 [DatabaseStatementInterface](./DatabaseStatementInterface)，则 `$args` 数组将被忽略。
 
 - `$args`: `array`
 
     预处理语句的参数数组。默认 `[]`
-
-    - 如果使用未命名(?)占位符，该参数必须是一个索引数组。
+    - 如果使用(?)占位符，该参数必须是一个索引数组。
     - 如果使用命名占位符，该参数必须是一个关联数组。
 
 - `$options`: `array`
@@ -487,14 +511,12 @@ echo $connection->makeSequenceName('drupal', 'node');
 
     详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
-返回值: [DatabaseStatementInterface](./DatabaseStatementInterface)
-
-
+返回值: `mixed`
 
 
 ## getDriverClass($class, $files, $use_autoload)
 
-获取实现 `SelectQueryInterface` `QueryConditionInterface` `QueryAlterableInterface` `QueryPlaceholderInterface` 等特定操作接口的的驱动程序类。如果有返回此驱动程序的类的名称, 否则返回 `NULL`。
+获取特定于驱动程序的重写类。如果有返回此驱动程序的类的名称, 否则返回 `NULL`。
 
 参数:
 - `$class`: `string`
@@ -511,37 +533,15 @@ echo $connection->makeSequenceName('drupal', 'node');
 
 返回值: `string` | `null`
 
-```php {4}
-$database = array(
-    'default' => array(
-        'default' => array(
-            'driver'       => 'mysql',
-            'database'     => 'drupal-01',
-            'username'     => 'root',
-            'password'     => '123456',
-            'host'         => '192.168.1.20',
-        )
-    )
-);
-
-// database/mysql/query.inc
-class SelectQuery_mysql extends Query implements SelectQueryInterface {
-    ...
-}
-
-echo $connection->getDriverClass('SelectQuery', array('query.inc'));
-// output: SelectQuery_mysql
-```
-
 
 ## select($table, $alias, $options)
 
-准备并返回一个 `SelectQueryInterface` 查询对象。
+准备并返回一个 [SelectQueryInterface](./SelectQueryInterface) 查询对象。
 
 参数:
 - `$table`: `string`
 
-    此查询的基表名称，即 `FROM` 子句中的第一个表。这个表也将用作 [query_alter_hook()](../hook/query-alter-hook) 实现的基表。
+    此查询的基表名称，即 `FROM` 子句中的第一个表。
 
 - `$alias`: `array`
 
@@ -549,16 +549,16 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
 - `$options`: `array`
 
-    用于控制查询如何运行的关联选项数组。默认 []
+    用于控制查询如何运行的关联选项数组。默认 `[]`
 
     详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
-返回值: `SelectQueryInterface`
+返回值: [SelectQueryInterface](./SelectQueryInterface)
 
 
 ## insert($table, $options)
 
-准备并返回一个 `InsertQuery` 对象。
+准备并返回一个 [InsertQuery](./InsertQuery) 对象。
 
 参数:
 - `$table`: `string`
@@ -567,16 +567,16 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
 - `$options`: `array`
 
-    用于控制查询如何运行的关联选项数组。默认 []
+    用于控制查询如何运行的关联选项数组。默认 `[]`
 
     详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
-返回值: `InsertQuery`
+返回值: [InsertQuery](./InsertQuery)
 
 
 ## merge($table, $options)
 
-准备并返回一个 `MergeQuery` 对象。
+准备并返回一个 [MergeQuery](./MergeQuery) 对象。
 
 参数:
 - `$table`: `string`
@@ -585,16 +585,16 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
 - `$options`: `array`
 
-    用于控制查询如何运行的关联选项数组。默认 []
+    用于控制查询如何运行的关联选项数组。默认 `[]`
 
     详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
-返回值: `MergeQuery`
+返回值: [MergeQuery](./MergeQuery)
 
 
 ## update($table, $options)
 
-准备并返回一个 `UpdateQuery` 对象。
+准备并返回一个 [UpdateQuery](./UpdateQuery) 对象。
 
 参数:
 - `$table`: `string`
@@ -603,16 +603,16 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
 - `$options`: `array`
 
-    用于控制查询如何运行的关联选项数组。默认 []
+    用于控制查询如何运行的关联选项数组。默认 `[]`
 
     详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
-返回值: `UpdateQuery`
+返回值: [UpdateQuery](./UpdateQuery)
 
 
 ## delete($table, $options)
 
-准备并返回一个 `DeleteQuery` 对象。
+准备并返回一个 [DeleteQuery](./DeleteQuery) 对象。
 
 参数:
 - `$table`: `string`
@@ -621,16 +621,16 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
 - `$options`: `array`
 
-    用于控制查询如何运行的关联选项数组。默认 []
+    用于控制查询如何运行的关联选项数组。默认 `[]`
 
     详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
-返回值: `DeleteQuery`
+返回值: [DeleteQuery](./DeleteQuery)
 
 
 ## truncate($table, $options)
 
-准备并返回一个 `TruncateQuery` 对象。
+准备并返回一个 [TruncateQuery](./TruncateQuery) 对象。
 
 参数:
 - `$table`: `string`
@@ -639,18 +639,18 @@ echo $connection->getDriverClass('SelectQuery', array('query.inc'));
 
 - `$options`: `array`
 
-    用于控制查询如何运行的关联选项数组。默认 []
+    用于控制查询如何运行的关联选项数组。默认 `[]`
 
     详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
-返回值: `TruncateQuery`
+返回值: [TruncateQuery](./TruncateQuery)
 
 
 ## schema()
 
-返回此连接的结果集 [DatabaseSchema](./DatabaseSchema) 对象
+获取处理 [Schema API]() 模式的对象。
 
-返回值: `DatabaseSchema`
+返回值: [DatabaseSchema](./DatabaseSchema)
 
 
 ## escapeTable($table)
@@ -722,9 +722,9 @@ SELECT * FROM person WHERE name LIKE '维多\%\_%';
 
 ## transactionDepth()
 
-获取当前连接的事务层级。
+获取当前连接的事务深度（存档点数量）。
 
-返回值: `number`
+返回值: `int`
 
 
 ## startTransaction($name)
@@ -791,29 +791,29 @@ SELECT * FROM person WHERE name LIKE '维多\%\_%';
 
 
 ## commit()
+
 抛出异常，拒绝直接访问事务提交。
 
 
 ## utf8mb4IsConfigurable()
 
-检查是否可以在 `settings.php` 中配置 `utf8mb4` 支持。
+检查当前驱动程序是否支持配置 `utf8mb4` 编码。
 
-返回值: `boolean`
+返回值: `false`
 
 
 ## utf8mb4IsActive()
 
-检查是否已激活 `utf8mb4` 支持。
+检查当前连接选项是否已配置 `utf8mb4` 编码。
 
-返回值: `boolean`
+返回值: `false`
 
 
 ## utf8mb4IsSupported()
 
 检查当前数据库系统是否支持 `utf8mb4`。
 
-返回值: `boolean`
-
+返回值: `false`
 
 
 ## defaultOptions()
@@ -849,7 +849,6 @@ SELECT * FROM person WHERE name LIKE '维多\%\_%';
       - [Database::RETURN_AFFECTED](./Database.html#const)
       - [Database::RETURN_INSERT_ID](./Database.html#const)
       - [Database::RETURN_NULL](./Database.html#const)
-
 
   - `throw_exception`: `boolean`
 
@@ -963,7 +962,6 @@ $connection->expandArguments($query, $args);
 ```php
 // $query
 SELECT * FROM {node} WHERE nid IN (:nids_0, :nids_1, nids_2)
-
 // $args
 array(
     'nids_0' => 1,
@@ -976,7 +974,7 @@ array(
 ## popCommittableTransactions()
 <Badge>protected</Badge>
 
-内部使用：提交所有可以提交的事务层。
+提交所有可以提交的事务层。
 
 
 ## generateTemporaryTableName()
@@ -985,7 +983,6 @@ array(
 生成临时表的名称。
 
 返回值: `string`
-
 
 
 ## queryRange($query, $from, $count, $args, $options)
@@ -1000,17 +997,17 @@ array(
 
 - `$from`: `number`
 
-    要返回的第一个结果行 `OFFSET`。
+    指定要返回的第一行的偏移量。
 
 - `$count`: `number`
 
-    要返回的最大结果行数 `LIMIT`。
+    指定要返回的最大行数。
 
 - `$args`: `array`
 
     预处理语句的参数数组。默认 `[]`
 
-    - 如果使用未命名(?)占位符，该参数必须是一个索引数组。
+    - 如果使用(?)占位符，该参数必须是一个索引数组。
     - 如果使用命名占位符，该参数必须是一个关联数组。
 
 - `$options`: `array`
@@ -1019,7 +1016,7 @@ array(
 
     详细信息请参阅 [DatabaseConnection::defaultOptions()](#defaultOptions)
 
-返回值: `DatabaseStatementInterface`
+返回值: [DatabaseStatementInterface](./DatabaseStatementInterface)
 
 
 ## queryTemporary($query, $args, $options)
@@ -1036,7 +1033,7 @@ array(
 
     预处理语句的参数数组。默认 `[]`
 
-    - 如果使用未命名(?)占位符，该参数必须是一个索引数组。
+    - 如果使用(?)占位符，该参数必须是一个索引数组。
     - 如果使用命名占位符，该参数必须是一个关联数组。
 
 - `$options`: `array`
@@ -1076,20 +1073,31 @@ array(
 
 返回值: `array` | `null`
 
+```php
+// sqlite/DatabaseConnection_sqlite.php
+public function mapConditionOperator($operator) {
+    // We don't want to override any of the defaults.
+    static $specials = array(
+      'LIKE' => array('postfix' => " ESCAPE '\\'"),
+      'NOT LIKE' => array('postfix' => " ESCAPE '\\'"),
+    );
+    return isset($specials[$operator]) ? $specials[$operator] : NULL;
+}
+```
+
 
 ## nextId($existing_id = 0)
 <Badge>abstract</Badge>
 
-从给定序列中检索一个唯一的id。
-
-如果由于某些原因不能使用串行字段，请使用此函数。例如，MySQL没有读取序列当前值的方法，PostgresQL也不能将序列提升到大于给定值的值。有时你只需要一个唯一的整数。
+获取一个最大的唯一整数ID。
 
 参数:
 - `$existing_id`: `number`
 
-    在数据库导入之后，序列表可能是benind，因此通过传入最大的现有id，可以确保我们永远不会发出相同的id。
+    目前最大的ID值。默认 `0`
 
-返回值: `number`
+返回值: `int`
+
 
 
 ## 源代码

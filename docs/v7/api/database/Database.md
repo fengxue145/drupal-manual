@@ -6,7 +6,7 @@
 这个类是不可实例化和不可扩展的。 它的作用是将所有数据库连接的控制和引导封装到单个位置，而不使用全局变量。
 
 
-## CONST
+## const
 - `RETURN_NULL`: `0`
 
 指示一个没有合理返回值的查询返回 `NULL`。
@@ -103,7 +103,7 @@ array(
 
     要启用日志记录的数据库连接键。默认 `default`
 
-返回值: [DatabaseLog](./databaselog)
+返回值: [DatabaseLog](./DatabaseLog)
 
 
 ## getLog($logging_key, $key)
@@ -123,7 +123,7 @@ array(
 
 返回值: `array`
 
-更多详细参见 [DatabaseLog::$queryLog](./databaselog.html#querylog)
+更多详细参见 [DatabaseLog::$queryLog](./DatabaseLog.html#queryLog)
 
 
 ## getConnection($target, $key)
@@ -141,7 +141,7 @@ array(
 
     数据库连接键。默认 `NULL`，表示活动键。
 
-返回值: [DatabaseConnection](./databaseconnection)
+返回值: [DatabaseConnection](./DatabaseConnection)
 
 
 ## isActiveConnection()
@@ -157,7 +157,7 @@ array(
 <Badge>final</Badge>
 <Badge>static</Badge>
 
-设置默认数据库连接。如果成功，则返回旧的数据库连接键。
+设置默认数据库连接。如果成功，返回旧的数据库连接键；失败返回 `NULL`。
 
 参数:
 - `$key`: `string`
@@ -178,7 +178,7 @@ echo Database::setActiveConnection('extra'); // default
 <Badge>final</Badge>
 <Badge>static</Badge>
 
-处理数据库信息的配置文件 `settings.php`。
+处理 `settings.php` 配置文件中的数据库信息。
 
 
 ## addConnectionInfo($key, $target, $info)
@@ -218,10 +218,6 @@ Database::addConnectionInfo('default', 'slave', $connection_info['default']);
 
 返回值: `string`
 
-```php
-$connectionInfo = Database::getConnectionInfo('default');
-```
-
 
 ## renameConnection($old_key, $new_key)
 <Badge>final</Badge>
@@ -239,10 +235,6 @@ $connectionInfo = Database::getConnectionInfo('default');
     新的数据库连接键。
 
 返回值: `boolean`
-
-```php
-Database::renameConnection('default', 'slave');
-```
 
 
 ## removeConnection($key, $close)
@@ -262,10 +254,6 @@ Database::renameConnection('default', 'slave');
 
 返回值: `boolean`
 
-```php
-Database::removeConnection('default');
-```
-
 
 ## openConnection($key, $target)
 <Badge>final</Badge>
@@ -277,7 +265,7 @@ Database::removeConnection('default');
 参数:
 - `$key`: `string`
 
-    数据库连接键，在 `settings.php` 中指定。默认 `default`
+    数据库连接键。默认 `default`
 
 - `$target`: `string`
 
@@ -293,11 +281,11 @@ Database::removeConnection('default');
 参数:
 - `$target`: `string`
 
-    数据库目标名称。默认 `NULL`，表示关闭所有目标连接。
+    数据库目标名称。默认 `NULL` 表示关闭所有目标连接。
 
 - `$key`: `string`
 
-    数据库连接键。默认 `NULL`，表示活动键。
+    数据库连接键。默认 `NULL` 表示活动键。
 
 ```php
 $db1 = Database::getConnection('default', 'default');
@@ -312,12 +300,11 @@ if ($db1 !== $db2) {
 ```
 
 
-## ignoreTarget($key, $target)修改文案：
-
+## ignoreTarget($key, $target)
 <Badge>final</Badge>
 <Badge>static</Badge>
 
-指定需要忽略的数据库目标。被忽略的目标始终会返回 `default`。
+指定需要忽略的数据库目标，被忽略的目标始终会返回 `default`。
 
 参数:
 - `$key`: `string`
@@ -328,14 +315,16 @@ if ($db1 !== $db2) {
 
     需要忽略的数据库目标名称。
 
-```php {5}
+```php
 // 获取默认连接信息，并添加一个新连接
 $connection_info = Database::getConnectionInfo('default');
 Database::addConnectionInfo('default', 'slave', $connection_info['default']);
 
+// 这里 slave 被忽略了
 Database::ignoreTarget('default', 'slave');
 
 $db1 = Database::getConnection('default', 'default');
+// 因为 slave 被忽略了，会使用 default 代替
 $db2 = Database::getConnection('slave', 'default');
 
 if ($db1 === $db2) {
@@ -344,7 +333,7 @@ if ($db1 === $db2) {
 ```
 
 
-## loadDriverFile($driver, array $files = array())
+## loadDriverFile($driver, $files)
 <Badge>final</Badge>
 <Badge>static</Badge>
 
@@ -357,7 +346,9 @@ if ($db1 === $db2) {
 
 - `$files`: `array`
 
-    驱动文件列表。相对于 `includes/database` 或 `includes/database/{$driver}`目录。
+    驱动文件列表。默认 `[]`
+
+    查询路径相对于 `includes/database` 或 `includes/database/{$driver}`目录。
 
 ```php
 // 目录结构
