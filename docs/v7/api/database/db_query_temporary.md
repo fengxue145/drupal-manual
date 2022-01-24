@@ -1,27 +1,32 @@
-## db_query_temporary($query, array $args = array(), array $options = array())
+---
+sidebarDepth: 0
+---
 
-执行一个 `SELECT` 查询字符串，并将结果集保存到一个临时表中。
+## db_query_temporary($query, $args, $options)
 
-- 参数:
-  - `$query`: `string`
+运行 `SELECT` 查询并将其结果存储在临时表中，并返回临时表的名称。
 
-    要运行的预处理语句查询。数据库表名需要使用花括号进行封装，此外在合适的地方可以使用占位符。
+参数:
+- <span class="required">*</span>`$query`: `string`
 
-  - `$args`: `array`
+  要执行的查询。在大多数情况下，这将是一个包含有占位符的 `SQL` 查询的字符串。
 
-    包含占位符值的数组。如果使用的是 "命名占位符"，则为关联数组。如果使用的是 "未命名占位符"，则为索引数组。
+- <span class="required">*</span>`$args`: `array`
 
-  - `$options`: `options`
+  预处理语句的参数数组。默认 `[]`
 
-    用于控制查询操作方式的选项数组。参见 [DatabaseConnection::defaultOptions()](./DatabaseConnection.html#defaultOptions)
+  - 如果使用(?)占位符，该参数必须是一个索引数组。
+  - 如果使用命名占位符，该参数必须是一个关联数组。
 
-- 返回值: `string`
+- `$options`: `options`
 
-    返回临时表的名称。
+  用于控制查询如何运行的关联选项数组。默认 `[]`
+
+  详细信息请参阅 [DatabaseConnection::defaultOptions()](./DatabaseConnection.html#defaultOptions)
+
+返回值: `string`
 
 
-#### 案例
-- 普通查询
 ```php
 $temporary = db_query_temporary('SELECT nid, title FROM {node}');
 $result = db_select($temporary, 't')->fields('t')->execute()->fetchAllAssoc('nid');
@@ -29,58 +34,4 @@ $result = db_select($temporary, 't')->fields('t')->execute()->fetchAllAssoc('nid
 //     1 => array('nid' => 1, 'title' => 'Exmaple 1'),
 //     2 => array('nid' => 2, 'title' => 'Exmaple 2')
 // )
-```
-
-- 未命名占位符
-```php
-$temporary = db_query_temporary(
-    'SELECT nid, title FROM {node} WHERE nid = ?',
-    array(1)
-);
-$result = db_select($temporary, 't')->fields('t')->execute()->fetchAssoc();
-// array('nid' => 1, 'title' => 'Exmaple 1')
-```
-
-- 命名占位符
-```php
-$temporary = db_query_temporary(
-    'SELECT nid, title FROM {node} WHERE nid = :nid',
-    array(':nid' => 1)
-);
-$result = db_select($temporary, 't')->fields('t')->execute()->fetchAssoc();
-// array('nid' => 1, 'title' => 'Exmaple 1')
-```
-
-- 切换数据库查询
-```php
-$databases = array(
-    'default' => array (
-        'default' => array (
-            'database' => 'drupal_local',
-            'username' => 'root',
-            'password' => 'root',
-            'host' => '127.0.0.1',
-            'port' => '3306',
-            'driver' => 'mysql',
-            'prefix' => '',
-        ),
-        'slave' => array(
-            'database' => 'drupal_local',
-            'username' => 'root',
-            'password' => 'root',
-            'host' => '127.0.0.1',
-            'port' => '3307',
-            'driver' => 'mysql',
-            'prefix' => '',
-        )
-    )
-);
-
-$temporary = db_query_temporary(
-    'SELECT nid, title FROM {node} WHERE nid = :nid',
-    array('nid' => 1),
-    array('target' => 'slave')
-);
-$result = db_select($temporary, 't', array('target' => 'slave'))->fields('t')->execute()->fetchAssoc();
-// array('nid' => 1, 'title' => 'Exmaple 1')
 ```

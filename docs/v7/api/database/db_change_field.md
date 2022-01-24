@@ -1,48 +1,48 @@
-## db_change_field($table, $field, $field_new, $spec, $keys_new = array())
+---
+sidebarDepth: 0
+---
 
-更改字段定义。
+## db_change_field($table, $field, $field_new, $spec, $keys_new)
 
-- 参数:
-  - `$table`: `string`
+修改数据表中某个字段的定义。
 
-    要修改的表的名称。
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-  - `$field`: `string`
+  要操作的数据表名称。
 
-    要更改的字段的名称。
+- <span class="required">*</span>`$field`: `string`
 
-  - `$field_new`: `string`
+  要修改的字段名称。
 
-    字段的新名称(如果您不想更改名称，则设置为相同的 `$field`)。
+- <span class="required">*</span>`$field_new`: `string`
 
-  - `$spec`: `struct`
+  字段的新名称。(如果不想更改名称，则设置为相同的 `$field`)
 
-    字段规范数组，取自 [Schema API](../../core/database/schema_api)。
+- <span class="required">*</span>`$spec`: `struct`
 
-  - `$keys_new`: `array`
+  [Schema API]() 的字段定义数组。
 
-    索引规范数组，取自 [Schema API](../../core/database/schema_api)。
+- `$keys_new`: `array`
+
+  向数据表中追加索引。[Schema API]() 的索引定义数组，默认 `[]`
+
 
 ```php
-$field_schema = array(
-    'type'     => 'varchar',
-    'length'   => 255,
-    'not null' => TRUE,
-    'default'  => ''
-);
+db_change_field('file', 'name', 'filename', array(
+    'type'        => 'varchar',
+    'length'      => 128,
+    'not null'    => FALSE,
+    'description' => 'File basename.',
+));
 
-db_change_field('file', 'path', 'fullpath', $field_schema);
-// SQL: ALTER TABLE {file} CHANGE `path` `fullpath` VARCHAR(255) NOT NULL DEFAULT ''
-
-$primary_key = array('fullpath');
-db_change_field('file', 'path', 'fullpath', $field_schema, array('primary key' => $primary_key));
-// SQL: ALTER TABLE {file} CHANGE `path` `fullpath` VARCHAR(255) NOT NULL DEFAULT '', ADD PRIMARY KEY (`fullpath`)
-
-$unique_keys = array('uk_fullpath' => array('fullpath'));
-db_change_field('file', 'path', 'fullpath', $field_schema, array('unique keys' => $unique_keys);
-// SQL: ALTER TABLE {file} CHANGE `path` `fullpath` VARCHAR(255) NOT NULL DEFAULT '', ADD UNIQUE KEY `uk_fullpath` (`fullpath`)
-
-$indexes = array('ik_fullpath' => array('fullpath'));
-db_change_field('file', 'path', 'fullpath', $field_schema, array('indexes' => $indexes);
-// SQL: ALTER TABLE {file} CHANGE `path` `fullpath` VARCHAR(255) NOT NULL DEFAULT '', ADD INDEX `ik_fullpath` (`fullpath`)
+db_change_field('file', 'mime', 'filemime', array(
+    'type'        => 'int',
+    'size'        => 'tiny',
+    'unsigned'    => TRUE,
+    'not null'    => FALSE,
+    'description' => 'File mime.',
+), array(
+    'indexes'     => array('ik_mime' => array('filemime'))
+));
 ```

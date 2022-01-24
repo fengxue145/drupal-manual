@@ -13,7 +13,7 @@
 
 ## nextPlaceholder()
 
-返回查询的下一个占位符ID。
+返回下一个占位符ID。
 
 返回值: `int`
 

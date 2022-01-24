@@ -1,21 +1,23 @@
+---
+sidebarDepth: 0
+---
+
 ## db_field_exists($table, $field)
 
-检查给定表中是否存在给定的"列"。
+判断数据表中是否存在指定字段。
 
-- 参数:
-  - `$table`: `string`
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-    表的名称。
+  要检查的数据表名称。
 
-  - `$field`: `string`
+- <span class="required">*</span>`$field`: `string`
 
-    字段的名称。
+  字段的名称。
 
-- 返回值: `boolean`
+返回值: `boolean`
 
-    如果给定的"列"存在，则为TRUE，否则为FALSE。
 
 ```php
 db_field_exists('file', 'hash');
-// SQL: SELECT hash FROM {file} LIMIT 0, 1
 ```

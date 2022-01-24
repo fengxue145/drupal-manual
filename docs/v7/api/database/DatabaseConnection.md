@@ -495,7 +495,7 @@ echo $connection->makeSequenceName('drupal', 'node');
 参数:
 - `$query`: `string`
 
-    要执行的查询。
+    要执行的查询字符串。
 
     在大多数情况下，这将是一个包含有占位符的 `SQL` 查询的字符串。也可以传递一个已经准备好的 [DatabaseStatementInterface](./DatabaseStatementInterface) 实例，以便允许调用代码手动将变量绑定到查询。如果传递了 [DatabaseStatementInterface](./DatabaseStatementInterface)，则 `$args` 数组将被忽略。
 

@@ -2,49 +2,46 @@
 sidebarDepth: 0
 ---
 
+## db_add_field($table, $field, $spec, $keys_new)
 
-## db_add_field($table, $field, $spec, $keys_new = array())
+向数据表中添加一个新字段。
 
-向表中添加新字段。
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-- 参数:
-  - `$table`: `string`
+  要操作的数据表名称。
 
-    要修改的表的名称。
+- <span class="required">*</span>`$field`: `string`
 
-  - `$field`: `string`
+  要添加的字段名。
 
-    要添加的字段名。
+- <span class="required">*</span>`$spec`: `struct`
 
-  - `$spec`: `struct`
+  [Schema API]() 的字段定义数组。
 
-    字段规范数组，取自 [Schema API](../../core/database/schema_api)。
+- `$keys_new`: `array`
 
-  - `$keys_new`: `array`
+  向数据表中追加索引。[Schema API]() 的索引定义数组，默认 `[]`
 
-    索引规范数组，取自 [Schema API](../../core/database/schema_api)。
+返回值: `boolean`
 
 
 ```php
-$field_schema = array(
-    'type'     => 'varchar',
-    'length'   => 255,
-    'not null' => TRUE,
-    'default'  => ''
-);
+db_add_field('file', 'name', array(
+  'type'        => 'varchar',
+  'length'      => 256,
+  'not null'    => TRUE,
+  'default'     => '',
+  'description' => 'File basename.',
+));
 
-db_add_field('file', 'fullpath', $field_schema);
-// SQL: ALTER TABLE {file} ADD `fullpath` VARCHAR(255) NOT NULL DEFAULT ''
-
-$primary_key = array('fullpath');
-db_add_field('file', 'fullpath', $field_schema, array('primary key' => $primary_key));
-// SQL: ALTER TABLE {file} ADD `fullpath` VARCHAR(255) NOT NULL DEFAULT '', ADD PRIMARY KEY (`fullpath`)
-
-$unique_keys = array('uk_fullpath' => array('fullpath'));
-db_add_field('file', 'fullpath', $field_schema, array('unique keys' => $unique_keys);
-// SQL: ALTER TABLE {file} ADD `fullpath` VARCHAR(255) NOT NULL DEFAULT '', ADD UNIQUE KEY `uk_fullpath` (`fullpath`)
-
-$indexes = array('ik_fullpath' => array('fullpath'));
-db_add_field('file', 'fullpath', $field_schema, array('indexes' => $indexes);
-// SQL: ALTER TABLE {file} ADD `fullpath` VARCHAR(255) NOT NULL DEFAULT '', ADD INDEX `ik_fullpath` (`fullpath`)
+db_add_field('file', 'mime', array(
+  'type'        => 'varchar',
+  'length'      => 64,
+  'not null'    => TRUE,
+  'default'     => '',
+  'description' => 'File mime.',
+), array(
+  'indexes'     => array('ik_name' => array('name'))
+));
 ```

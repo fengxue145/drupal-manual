@@ -1,6 +1,7 @@
 # UpdateQuery_mysql
 
-继承 [UpdateQuery](../UpdateQuery)
+继承:
+- [UpdateQuery](../UpdateQuery)
 
 
 ## __toString()

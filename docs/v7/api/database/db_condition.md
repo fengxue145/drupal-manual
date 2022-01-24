@@ -1,12 +1,16 @@
+---
+sidebarDepth: 0
+---
+
 ## db_condition($conjunction)
 
-返回一个新的databaseconcondition，设置为指定的连接。
+获取一个新的 [DatabaseCondition](./DatabaseCondition) 对象。
 
-内部API函数调用。 优先使用db_and()、db_or()和db_xor()函数。
+建议优先使用 [db_and()](./db_and)、[db_or()](./db_or) 和 [db_xor()](./db_xor) 函数。
 
-- 参数:
-  - `$conjunction`: `string`
+参数:
+- <span class="required">*</span>`$conjunction`: `string`
 
-    用于查询条件(AND、OR 或 XOR)。
+  条件连接符。如 `AND`、`OR` 或 `XOR`。
 
-- 返回值: `DatabaseCondition`
+返回值: [DatabaseCondition](./DatabaseCondition)

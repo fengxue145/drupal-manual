@@ -1,6 +1,9 @@
 # DatabaseSchema_mysql
 
-Mysql数据库模式的实现，继承 [DatabaseSchema](../DatabaseSchema)。
+Mysql数据库模式的实现。
+
+继承:
+- [DatabaseSchema](../DatabaseSchema)
 
 
 ## const
@@ -253,7 +256,7 @@ ALTER TABLE {file} ADD `mime` VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'File mime
 
 - `$field_new`: `string`
 
-    字段的新名称。
+    字段的新名称。(如果您不想更改名称，则设置为相同的 `$field`)
 
 - `$spec`: `array`
 
@@ -299,7 +302,7 @@ ALTER TABLE {file} CHANGE `mime` `filemime` TINYINT unsigned NULL DEFAULT NULL C
 
 - `$field`: `string`
 
-    字段名称。
+    要删除的字段名称。
 
 返回值: `boolean`
 

@@ -1,14 +1,19 @@
+---
+sidebarDepth: 0
+---
+
 ## db_create_table($name, $table)
-创建一个新表。
 
-- 参数:
-  - `$name`: `string`
+根据 [Schema API]() 的表定义数组，创建一个新表。
 
-    要创建的表的名称。
+参数:
+- <span class="required">*</span>`$name`: `string`
 
-  - `$table`: `struct`
+  要创建的表的名称。
 
-    [Schema API](../../core/database/schema_api) 的表定义数组。
+- <span class="required">*</span>`$table`: `struct`
+
+  [Schema API]() 的表定义数组。
 
 
 ```php
@@ -74,13 +79,12 @@ $schema = array(
         )
     ),
     'indexes' => array(
-        'name'     => array('name'),
-        'ext'      => array('ext'),
-        'mime'     => array('mime'),
-        'filename' => array('name', 'ext')
+        'ik_name'     => array('name'),
+        'ik_ext'      => array('ext'),
+        'ik_name_ext' => array('name', 'ext')
     ),
     'unique keys' => array(
-        'hash' => array('hash'),
+        'uk_hash' => array('hash'),
     ),
     'primary key' => array('fid'),
 );
@@ -99,11 +103,10 @@ CREATE TABLE {file2} (
     `status` TINYINT NOT NULL DEFAULT 1 COMMENT 'file status. 0 = delete, 1 = normal',
     `created` DATETIME  NOT NULL COMMENT 'file create time.',
     PRIMARY KEY (`fid`),
-    UNIQUE KEY `hash` (`hash`),
-    INDEX `name` (`name`),
-    INDEX `ext` (`ext`),
-    INDEX `mime` (`mime`),
-    INDEX `filename` (`name`, `ext`)
+    UNIQUE KEY `uk_hash` (`hash`),
+    INDEX `ik_name` (`name`),
+    INDEX `ik_ext` (`ext`),
+    INDEX `ik_name_ext` (`name`, `ext`)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8 COMMENT 'The base table for file.'
 */
 ```

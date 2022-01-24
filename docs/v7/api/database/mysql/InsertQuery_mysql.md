@@ -1,6 +1,7 @@
 # InsertQuery_mysql
 
-继承 [InsertQuery](../InsertQuery)
+继承:
+- [InsertQuery](../InsertQuery)
 
 
 ## execute()

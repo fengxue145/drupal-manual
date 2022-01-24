@@ -1,16 +1,18 @@
-## db_delete($table, array $options = array())
+---
+sidebarDepth: 0
+---
 
-创建一个 `TruncateQuery` 对象，用于处理数据库的 `TRUNCATE` 操作。
+## db_truncate($table, $options)
 
-- 参数:
-  - `$table`: `string`
+获取一个 [TruncateQuery](./TruncateQuery) 对象，用于处理数据库的 `TRUNCATE` 操作。
 
-    数据表名称。
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-  - `$options`: `array`
+  数据表名称。
 
-    用于控制查询操作方式的选项数组。
+- `$options`: `array`
 
-- 返回值: `TruncateQuery`
+  用于控制查询操作方式的选项数组。
 
-    返回一个 [TruncateQuery](./TruncateQuery) 对象。
+返回值: [TruncateQuery](./TruncateQuery)

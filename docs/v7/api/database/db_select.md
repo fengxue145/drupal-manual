@@ -1,20 +1,33 @@
-## db_select($table, $alias = NULL, array $options = array())
+---
+sidebarDepth: 0
+---
 
-创建一个 `SelectQuery` 对象，用于处理数据库的 `SELECT` 操作。
+## db_select($table, $alias, $options)
 
-- 参数:
-  - `$table`: `string`
+获取一个 [SelectQuery](./SelectQuery) 对象，用于处理数据库的 `SELECT` 操作。
 
-    查询的基表名称，可以是字符串或另一个 `SelectQuery` 对象。如果传递了 `SelectQuery`，它将被用作子查询。
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-  - `$alias`: `string`
+  查询的基表名称，可以是字符串或另一个 `SelectQuery` 对象。如果传递了 `SelectQuery`，它将被用作子查询。
 
-    表别名。
+- `$alias`: `string`
 
-  - `$options`: `array`
+  数据表的别名。默认 `NULL` 相同表名
 
-    用于控制查询操作方式的选项数组。
+- `$options`: `array`
 
-- 返回值: `SelectQuery`
+  用于控制查询如何运行的关联选项数组。默认 `[]`
 
-    返回一个 [SelectQuery](./SelectQuery) 对象。
+  详细信息请参阅 [DatabaseConnection::defaultOptions()](./DatabaseConnection.html#defaultOptions)
+
+返回值: [SelectQuery](./SelectQuery)
+
+
+```php
+db_select('node', 't')
+  ->fields('t', array('title', status))
+  ->condition('status', 1)
+  ->execute()
+  ->fetchAll();
+```

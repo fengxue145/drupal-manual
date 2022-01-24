@@ -1,17 +1,23 @@
+---
+sidebarDepth: 0
+---
+
 ## db_drop_unique_key($table, $name)
 
-删除表中的某个唯一索引。
+删除数据表中的某个唯一索引。
 
-- 参数:
-  - `$table`: `string`
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-    要修改的表的名称。
+  要操作的数据表名称。
 
-  - `$name`: `string`
+- <span class="required">*</span>`$name`: `string`
 
-    唯一键的索引名称。
+  要删除的唯一索引名称。
+
+返回值: `boolean`
+
 
 ```php
-db_drop_unique_key('file', 'file_hash');
-// SQL: ALTER TABLE {file} DROP KEY `file_hash`
+db_drop_unique_key('file', 'uk_hash');
 ```

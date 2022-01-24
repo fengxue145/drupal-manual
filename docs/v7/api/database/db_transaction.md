@@ -1,16 +1,18 @@
-## db_transaction($name = NULL, array $options = array())
+---
+sidebarDepth: 0
+---
 
-创建一个 `DatabaseTransaction` 对象，用于处理数据库的事务操作。
+## db_transaction($name, $options)
 
-- 参数:
-  - `$table`: `string`
+获取一个 [DatabaseTransaction](./DatabaseTransaction) 对象，用于处理数据库的事务操作。
 
-    事务的可选名称。
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-  - `$options`: `array`
+  事务的名称。默认 `NULL`
 
-    用于控制事务操作方式的选项数组，仅 `target` 属性可用。
+- `$options`: `array`
 
-- 返回值: `DatabaseTransaction`
+  用于控制事务操作方式的选项数组，仅 `target` 属性可用。默认 `[]` 当前活动连接
 
-    返回一个 [DatabaseTransaction](./DatabaseTransaction) 对象。
+返回值: [DatabaseTransaction](./DatabaseTransaction)

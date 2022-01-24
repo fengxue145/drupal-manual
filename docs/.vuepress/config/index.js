@@ -10,6 +10,9 @@ module.exports = {
     title: "Drupal 开发文档",
     description: "Drupal 开发文档",
 
+    // 指定 vuepress build 的输出目录
+    dest: '/dist',
+
     // 导航栏 logo
     logo: '/logo.png',
 

@@ -1,12 +1,14 @@
+---
+sidebarDepth: 0
+---
+
 ## db_escape_field($field)
 
-将动态列或约束名称限制为安全字符。
+过滤字段名中的非法字符。
 
-- 参数:
-  - `$field`: `string`
+参数:
+- <span class="required">*</span>`$field`: `string`
 
-    要转义的字段名。
+  字段名称。
 
-- 返回值: `string`
-
-    返回转义后的字符串。
+返回值: `string`

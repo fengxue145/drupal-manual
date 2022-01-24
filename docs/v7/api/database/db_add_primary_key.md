@@ -1,17 +1,21 @@
+---
+sidebarDepth: 0
+---
+
 ## db_add_primary_key($table, $fields)
 
-向数据库表添加主键。
+向数据表中添加一个主键索引。
 
-- 参数:
-  - `$table`: `string`
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-    要修改的表的名称。
+  要操作的数据表名称。
 
-  - `$fields`: `array`
+- <span class="required">*</span>`$fields`: `array`
 
-    主键的字段数组。
+  主键索引的字段列表。
+
 
 ```php
 db_add_primary_key('file', array('fid'));
-// SQL: ALTER TABLE {file} ADD PRIMARY KEY (`fid`)
 ```

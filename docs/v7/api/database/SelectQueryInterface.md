@@ -1,6 +1,14 @@
 # SelectQueryInterface
+<Badge>interface</Badge>
 
 `SELECT` 查询对象的接口定义。
+
+继承:
+- [QueryConditionInterface](./QueryConditionInterface)
+- [QueryAlterableInterface](./QueryAlterableInterface)
+- [QueryExtendableInterface](./QueryExtendableInterface)
+- [QueryPlaceholderInterface](./QueryPlaceholderInterface)
+
 
 
 ## &getFields()

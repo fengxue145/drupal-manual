@@ -1,44 +1,41 @@
-## db_insert($table, array $options = array())
+---
+sidebarDepth: 0
+---
 
-创建一个 `InsertQuery` 对象，用于处理数据库的 `INSERT` 操作。
+## db_insert($table, $options)
 
-- 参数:
-  - `$table`: `string`
+获取一个 [InsertQuery](./InsertQuery) 对象，用于处理数据库的 `INSERT` 操作。
 
-    数据表名称。
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-  - `$options`: `array`
+  数据表名称。
 
-    用于控制查询操作方式的选项数组。
+- `$options`: `array`
 
-- 返回值: `InsertQuery`
+  用于控制查询如何运行的关联选项数组。默认 `[]`
 
-    返回一个 [InsertQuery](./InsertQuery) 对象。
+  详细信息请参阅 [DatabaseConnection::defaultOptions()](./DatabaseConnection.html#defaultOptions)
+
+返回值: [InsertQuery](./InsertQuery)
 
 
-#### 案例
-- 单条数据插入
 ```php
-// 方式一:
+// 单条数据插入
 $nid = db_insert('node')->fields(array(
    'title'   => 'Example',
    'uid'     => 1,
    'created' => REQUEST_TIME
 ))->execute();
-// SQL: INSERT INTO {node} (title, uid, created) VALUES ('Example', 1, 1641966593);
 
-
-// 方式二:
 $nid = db_insert('node')->fields(array('title', 'uid', 'created'))->values(array(
    'title'   => 'Example',
    'uid'     => 1,
    'created' => REQUEST_TIME
 ))->execute();
-// SQL: INSERT INTO {node} (title, uid, created) VALUES ('Example', 1, 1641966593);
-```
 
-- 多条数据插入
-```php
+
+// 多条数据插入
 $values = array(
     array(
         'title' => 'Example 1',
@@ -61,8 +58,4 @@ foreach ($values as $record) {
   $query->values($record);
 }
 $query->execute();
-// SQL:
-// INSERT INTO {node} (title, uid, created) VALUES ('Example 1', 1, 1641966593);
-// INSERT INTO {node} (title, uid, created) VALUES ('Example 2', 1, 1641966593);
-// INSERT INTO {node} (title, uid, created) VALUES ('Example 3', 1, 1641966593);
 ```

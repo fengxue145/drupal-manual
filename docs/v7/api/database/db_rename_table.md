@@ -1,21 +1,23 @@
+---
+sidebarDepth: 0
+---
+
 ## db_rename_table($table, $new_name)
 
-重命名表。
+重命名数据表名称。
 
-- 参数:
-  - `$table`: `string`
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-    要重命名的表的当前名称。
+  原数据表名称。
 
-  - `$new_name`: `string`
+- <span class="required">*</span>`$new_name`: `string`
 
-    表的新名称。
+  新数据表名称。
+
+返回值: `boolean`
+
 
 ```php
 db_rename_table('file', 'file2');
-```
-
-生成的 `SQL` 语句如下:
-```sql
-ALTER TABLE {file} RENAME TO `{file2}`
 ```

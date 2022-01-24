@@ -1,16 +1,20 @@
-## db_merge($table, array $options = array())
+---
+sidebarDepth: 0
+---
 
-创建一个 `MergeQuery` 对象，用于处理数据库的合并操作。
+## db_merge($table, $options)
 
-- 参数:
-  - `$table`: `string`
+获取一个 [MergeQuery](./MergeQuery) 对象，用于处理数据库的合并操作。
 
-    数据表名称。
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-  - `$options`: `array`
+  数据表名称。
 
-    用于控制查询操作方式的选项数组。
+- `$options`: `array`
 
-- 返回值: `MergeQuery`
+  用于控制查询如何运行的关联选项数组。默认 `[]`
 
-    返回一个 [MergeQuery](./MergeQuery) 对象。
+  详细信息请参阅 [DatabaseConnection::defaultOptions()](./DatabaseConnection.html#defaultOptions)
+
+返回值: [MergeQuery](./MergeQuery)

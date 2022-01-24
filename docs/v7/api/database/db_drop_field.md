@@ -1,17 +1,23 @@
+---
+sidebarDepth: 0
+---
+
 ## db_drop_field($table, $field)
 
-删除表中的某个字段。
+删除数据表中的某个字段。
 
-- 参数:
-  - `$table`: `string`
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-    要修改的表的名称。
+  要操作的数据表名称。
 
-  - `$field`: `string`
+- <span class="required">*</span>`$field`: `string`
 
-    要删除的字段名。
+  要删除的字段名称。
+
+返回值: `boolean`
+
 
 ```php
 db_drop_field('file', 'fullpath');
-// SQL: ALTER TABLE {file} DROP `fullpath`
 ```

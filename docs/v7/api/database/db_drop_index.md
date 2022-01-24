@@ -1,18 +1,23 @@
+---
+sidebarDepth: 0
+---
+
 ## db_drop_index($table, $name)
 
-删除表中的某个 `INDEX` 索引。
+删除数据表中的某个普通索引。
 
-- 参数:
-  - `$table`: `string`
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-    要修改的表的名称。
+  要操作的数据表名称。
 
-  - `$name`: `string`
+- <span class="required">*</span>`$name`: `string`
 
-    `INDEX` 索引的名称。
+  要删除的普通索引名称。
+
+返回值: `boolean`
 
 
 ```php
-db_drop_index('file', 'fullname');
-// SQL: ALTER TABLE {file} DROP INDEX `fullname`
+db_drop_index('file', 'ik_name_ext');
 ```

@@ -1,21 +1,23 @@
+---
+sidebarDepth: 0
+---
+
 ## db_index_exists($table, $name)
 
-检查给定表中是否存在索引。
+判断数据表中是否存在指定的普通索引。
 
-- 参数:
-  - `$table`: `string`
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-    表名称。
+  要检查的数据表名称。
 
-  - `$name`: `string`
+- <span class="required">*</span>`$name`: `string`
 
-    索引名称。
+  普通索引的名称。
 
-- 返回值: `boolean`
+返回值: `boolean`
 
-    如果给定索引存在，则为TRUE，否则为FALSE。
 
 ```php
-db_index_exists('file', 'name');
-// SQL: SHOW INDEX FROM {file} WHERE key_name = 'name'
+db_index_exists('file', 'ik_name');
 ```

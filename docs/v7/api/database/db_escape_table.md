@@ -1,12 +1,14 @@
+---
+sidebarDepth: 0
+---
+
 ## db_escape_table($table)
 
-将动态表名限制为安全字符。
+过滤表名中的非法字符。
 
-- 参数:
-  - `$table`: `string`
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-    要转义的表名。
+  数据表名称。
 
-- 返回值: `string`
-
-    转义的表名作为字符串。
+返回值: `string`

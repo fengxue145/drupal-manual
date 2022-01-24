@@ -1,6 +1,9 @@
 # DatabaseConnection_mysql
 
-Mysql数据库连接的实现，继承 [DatabaseConnection](../DatabaseConnection)。
+Mysql数据库连接的实现。
+
+继承:
+- [DatabaseConnection](../DatabaseConnection)
 
 
 ## $needsCleanup

@@ -1,21 +1,25 @@
+---
+sidebarDepth: 0
+---
+
 ## db_add_unique_key($table, $name, $fields)
 
-向表中添加唯一索引。
+向数据表中添加一个唯一索引。
 
-- 参数:
-  - `$table`: `string`
+参数:
+- <span class="required">*</span>`$table`: `string`
 
-    要修改的表的名称。
+  要操作的数据表名称。
 
-  - `$name`: `string`
+- <span class="required">*</span>`$name`: `string`
 
-    唯一索引的名称。
+  唯一索引的名称。
 
-  - `$fields`: `array`
+- <span class="required">*</span>`$fields`: `array`
 
-    唯一索引的字段数组。
+  唯一索引的字段列表。
+
 
 ```php
-db_add_unique_key('file', 'file_hash', array('hash'));
-// SQL: ALTER TABLE {file} ADD UNIQUE KEY `file_hash` (`hash`)
+db_add_unique_key('file', 'uk_hash', array('hash'));
 ```

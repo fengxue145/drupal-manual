@@ -1,10 +1,14 @@
+---
+sidebarDepth: 0
+---
+
 ## db_set_active($key = 'default')
 
-设置一个新的活动数据库。
+切换活动数据库，并返回旧的数据库键。
 
-- 参数:
-  - `$key`: `string`
+参数:
+- <span class="required">*</span>`$key`: `string`
 
-- 返回值: `string`
+  数据库键。
 
-    原活动数据库的键。
+返回值: `string`

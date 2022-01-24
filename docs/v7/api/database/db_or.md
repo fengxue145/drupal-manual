@@ -1,5 +1,35 @@
+---
+sidebarDepth: 0
+---
+
 ## db_or()
 
-返回一个新的 DatabaseCondition，将所有条件一起设置为 “OR”
+获取一个新的 [DatabaseCondition](./DatabaseCondition) 对象，并将所有条件使用 `OR` 连接。
 
-- 返回值: `DatabaseCondition`
+返回值: [DatabaseCondition](./DatabaseCondition)
+
+```php
+class Placeholder implements QueryPlaceholderInterface {
+  protected $uniqueIdentifier;
+  protected $nextPlaceholder = 0;
+
+  public function __construct() {
+    $this->uniqueIdentifier = uniqid('', TRUE);
+  }
+
+  public function uniqueIdentifier() {
+    return $this->uniqueIdentifier;
+  }
+
+  public function nextPlaceholder() {
+    return $this->nextPlaceholder++;
+  }
+}
+
+$condition = db_or();
+$condition->condition('status', 1);
+$condition->condition('title', '%今日', 'LIKE');;
+$condition->compile($conn, new Placeholder());
+echo (string)$condition;
+// (status = :db_condition_placeholder_0) OR (title LIKE :db_condition_placeholder_1 ESCAPE '\\')
+```

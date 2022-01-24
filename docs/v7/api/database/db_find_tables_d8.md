@@ -1,15 +1,20 @@
+---
+sidebarDepth: 0
+---
+
 ## db_find_tables_d8($table_expression)
 
-查找与指定基表名类似的所有表。这与 [db_find_tables()](./db_find_tables) 的区别是：没有表前缀。
+返回所有与基表类似的表名称数组，`key` 和 `value` 都是匹配的表名。
 
-- 参数:
-  - `$table_expression`: `string`
+这与 [db_find_tables()](./db_find_tables) 的区别是没有表前缀。
 
-    SQL表达式，例如 `simpletest%`（无需表前缀）。
+参数:
+- <span class="required">*</span>`$table_expression`: `string`
 
-- 返回值: `array`
+  SQL表达式，例如 `simpletest%`（无需表前缀）。
 
-    返回所有匹配的表名称数组（没有表前缀），`key` 和 `value` 都是匹配的表名。
+返回值: `array`
+
 
 ```php
 db_find_tables_d8('field_%');
@@ -18,9 +23,4 @@ db_find_tables_d8('field_%');
 //     'field_config_instance' => 'field_config_instance',
 //     ...
 // )
-```
-
-内部使用的 `SQL` 语句如下:
-```sql
-SELECT table_name AS table_name FROM information_schema.tables WHERE  (table_schema = 'database_name') AND (table_name LIKE '%' ESCAPE '\\')
 ```

@@ -1,6 +1,9 @@
 # DatabaseTasks_mysql
 
-指定Mysql的安装任务。继承 [DatabaseTasks](../DatabaseTasks)
+指定Mysql的安装任务。
+
+继承:
+- [DatabaseTasks](../DatabaseTasks)
 
 
 ## $pdoDriver
